@@ -1,0 +1,14 @@
+{
+  "addr": "0x6985884c4392d348587b19cb9eaaf157f13271cd",
+  "chain": "ethereum",
+  "name": "LayerZero V2",
+  "code_size": 14810,
+  "eip1967_impl": null,
+  "eip1967_admin": null,
+  "owner": "0xf2c6ebc0aad6e8024a2bd2623f97fea5d0ca8ef8",
+  "owner_sig": "owner()",
+  "verified": null,
+  "rpc_used": 4,
+  "stage": "CHECKLIST",
+  "reason": "has_code_needs_invariant_checks"
+}

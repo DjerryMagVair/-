@@ -1,0 +1,101 @@
+{
+  "addr": "0x6985884c4392d348587b19cb9eaaf157f13271cd",
+  "chain": "ethereum",
+  "name": "LayerZero V2",
+  "rpc_batches": 3,
+  "flags": [],
+  "details": {
+    "views": {
+      "totalSupply()": 848485810720361000000000000
+    },
+    "totalMinted": 848485810720361000000000000,
+    "totalLocked": null,
+    "unbacked_mint": null,
+    "mint_access": [
+      {
+        "sig": "mint(address,uint256)",
+        "from": "0x0000000000000000000000000000000000000000",
+        "eth_call_ok": false
+      },
+      {
+        "sig": "mint(address,uint256)",
+        "from": "0xf2c6ebc0aad6e8024a2bd2623f97fea5d0ca8ef8",
+        "eth_call_ok": false
+      },
+      {
+        "sig": "mint(address,uint256,bytes)",
+        "from": "0x0000000000000000000000000000000000000000",
+        "eth_call_ok": false
+      },
+      {
+        "sig": "mint(address,uint256,bytes)",
+        "from": "0xf2c6ebc0aad6e8024a2bd2623f97fea5d0ca8ef8",
+        "eth_call_ok": false
+      },
+      {
+        "sig": "mint(uint256)",
+        "from": "0x0000000000000000000000000000000000000000",
+        "eth_call_ok": false
+      },
+      {
+        "sig": "mint(uint256)",
+        "from": "0xf2c6ebc0aad6e8024a2bd2623f97fea5d0ca8ef8",
+        "eth_call_ok": false
+      }
+    ],
+    "anchor_access": [
+      {
+        "sig": "updateAnchor(bytes32)",
+        "from": "0x0000000000000000000000000000000000000000",
+        "eth_call_ok": false
+      },
+      {
+        "sig": "updateAnchor(bytes32)",
+        "from": "0xf2c6ebc0aad6e8024a2bd2623f97fea5d0ca8ef8",
+        "eth_call_ok": false
+      },
+      {
+        "sig": "updateAnchor(uint256,bytes32)",
+        "from": "0x0000000000000000000000000000000000000000",
+        "eth_call_ok": false
+      },
+      {
+        "sig": "updateAnchor(uint256,bytes32)",
+        "from": "0xf2c6ebc0aad6e8024a2bd2623f97fea5d0ca8ef8",
+        "eth_call_ok": false
+      },
+      {
+        "sig": "setLocked(uint256)",
+        "from": "0x0000000000000000000000000000000000000000",
+        "eth_call_ok": false
+      },
+      {
+        "sig": "setLocked(uint256)",
+        "from": "0xf2c6ebc0aad6e8024a2bd2623f97fea5d0ca8ef8",
+        "eth_call_ok": false
+      },
+      {
+        "sig": "setLocked(address,uint256)",
+        "from": "0x0000000000000000000000000000000000000000",
+        "eth_call_ok": false
+      },
+      {
+        "sig": "setLocked(address,uint256)",
+        "from": "0xf2c6ebc0aad6e8024a2bd2623f97fea5d0ca8ef8",
+        "eth_call_ok": false
+      }
+    ],
+    "owner": "0xf2c6ebc0aad6e8024a2bd2623f97fea5d0ca8ef8",
+    "eip1967_admin": null,
+    "eip1967_impl": null,
+    "upgrade_surface": false,
+    "message_spoofing": {
+      "note": "requires source review: chainId binding, signature, nonce",
+      "verified_source": null,
+      "needs_manual": true
+    }
+  },
+  "stage": "SAFE",
+  "reason": "no_invariant_flags",
+  "stage1_ref": "/home/djerry/repos/dash-repo/data/0x6985884c4392d348587b19cb9eaaf157f13271cd/stage1.json"
+}
