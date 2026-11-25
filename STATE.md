@@ -7,7 +7,7 @@
 | # | name | chain | addr | tvl | stage |
 |---|------|-------|------|-----|-------|
 | 1 | LayerZero V2 | ethereum | 0x6985884c4392d348587b19cb9eaaf157f13271cd | $17,840,289,481 | SAFE |
-| 2 | Stargate V2 | arbitrum | 0xa45b5130f36cdca45667738e2a258ab09f4a5f7f | manual | NEW |
+| 2 | Stargate V2 | arbitrum | 0xa45b5130f36cdca45667738e2a258ab09f4a5f7f | manual | CHECKLIST |
 | 3 | Polygon Bridge | ethereum | 0x455e53cbb86018ac2b8092fdcd39d8444affc3f6 | $2,151,668,378 | EXCLUDED |
 | 4 | Lighter Bridge | ethereum | 0x232ce3bd40fcd6f80f3d55a522d03f25df784ee2 | $500,957,080 | EXCLUDED |
 | 5 | Lorenzo enzoBTC | bsc | 0x3aee7602b612de36088f3ffed8c8f10e86ebf2bf | $360,665,832 | EXCLUDED |
