@@ -47,9 +47,10 @@ STATE.md — единственный источник правды.
 - Адреса мостов — только из `config/bridge_allowlist.json` (TokenBridge/Pool/SpokePool…).
   DefiLlama `address` **не** используется (часто token/governance).
 - DefiLlama `GET /protocols` (category Bridge*) — только TVL + `listedAt` для score.
-- Attack-surface score = `tvl_factor × age_factor × custom_factor × chain_factor`
-  (mid-TVL / новые / custom / Base|Ink|Robinhood|BSC выше; mega-TVL ниже).
+- Attack-surface score = `tvl × age × custom × chain × audit`
+  (audit_factor=0.5 для Across/Stargate/Wormhole; mid-TVL / новые / custom выше).
 - Перед QUEUE: `eth_getCode` + explorer verified + `validate_bridge_surface`.
+- Адрес в EXCLUDED → skip (re-audit только с `./run.sh collect --force`).
 - RPC: primary + fallbacks в `config/rpc.json` (цепи: ethereum, base, arbitrum, bsc, ink, robinhood).
 - EXCLUDED дедуп по **address** и по (name, chain).
 

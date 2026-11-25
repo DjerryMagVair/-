@@ -2,30 +2,27 @@
 
 ## QUEUE
 
-<!-- attack-surface score = tvl×age×custom×chain; addrs from config/bridge_allowlist.json (not DefiLlama address) -->
+<!-- score = tvl×age×custom×chain×audit; EXCLUDED skipped unless --force; addrs from config/bridge_allowlist.json -->
 
 | # | name | chain | addr | tvl | score | stage |
 |---|------|-------|------|-----|-------|-------|
-| 1 | Across SpokePool | base | 0x09aea4b2242abc8bb4bb78d537a67a245a7bec64 | $11,732,403 | 12 | NEW |
-| 2 | Across SpokePool | ethereum | 0x5c7bcd6e7de5423a257d81b442095a1a6ced35c5 | $11,732,403 | 6 | SAFE |
-| 3 | Allbridge Core | ethereum | 0xb753548f6e010e7e680ba186f9ca1bdab2e90cf2 | manual | 6 | NEW |
-| 4 | Celer cBridge | ethereum | 0x5427fefa711eff984124bfbb1ab6fbf5e3da1820 | $10,365,496 | 6 | NEW |
-| 5 | Chainlink CCIP Router | ethereum | 0x80226fc0ee2b096224eeac085bb9a8cba1146f7d | $1,686,916,258 | 6 | NEW |
-| 6 | Connext Diamond | ethereum | 0x8898b472c54c31894e3b9bb83cea802a5d0e63c6 | $17,591 | 6 | NEW |
-| 7 | deBridge Gate | ethereum | 0x43de2d77bf8027e25dbd179b491e8d64f38398aa | $1,371,743 | 6 | NEW |
-| 8 | Hop L1 Bridge | ethereum | 0xb8901acb165ed027e32754e0ffe830802919727f | $2,924,880 | 6 | NEW |
-| 9 | Ink L1 Standard Bridge | ink | 0x4200000000000000000000000000000000000010 | $37,444,248 | 6 | NEW |
-| 10 | Robinhood L1 ERC20 Gateway | robinhood | 0x1e324b9316138ca9a73f960213621ad1aaf01b89 | manual | 6 | NEW |
-| 11 | Synapse Bridge | ethereum | 0x2796317b0ff8538f253012862c06787adfb8ceb6 | manual | 6 | NEW |
-| 12 | Stargate V2 Pool | bsc | 0x4a364f8c717caad9a442737eb7b8a55cc6cf18d8 | $73,492,672 | 4 | NEW |
-| 13 | Ink L1 Standard Bridge | ethereum | 0x88ff1e5b602916615391f55854588efcbb7663f0 | $37,444,248 | 3 | NEW |
-| 14 | Linea L1 Message Service | ethereum | 0xd19d4b5d358258f05d7b411e21a1460d11b0876f | $42,469,884 | 3 | NEW |
-| 15 | Robinhood L1 ERC20 Gateway | ethereum | 0x85001cc4867c5e1c22da4b79bb8852b9e2a06da0 | manual | 3 | NEW |
-| 16 | zkSync Era Diamond | ethereum | 0x32400084c286cf3e17e7b677ea9583e60a000324 | manual | 3 | NEW |
-| 17 | Stargate V2 Pool | arbitrum | 0xa45b5130f36cdca45667738e2a258ab09f4a5f7f | $73,492,672 | 2 | SAFE |
-| 18 | Polygon PoS RootChainManager | ethereum | 0xa0c68c638235ee32657e8f720a23cec1bfc77c77 | $2,140,246,998 | 1 | NEW |
-| 19 | Wormhole TokenBridge | ethereum | 0x3ee18b2214aff97000d974cf647e7c347e8fa585 | $1,075,467,648 | 1 | SAFE |
-
+| 1 | Across SpokePool | base | 0x09aea4b2242abc8bb4bb78d537a67a245a7bec64 | $11,700,608 | 6.0 | CHECKLIST |
+| 2 | Allbridge Core | ethereum | 0xb753548f6e010e7e680ba186f9ca1bdab2e90cf2 | manual | 6.0 | NEW |
+| 3 | Celer cBridge | ethereum | 0x5427fefa711eff984124bfbb1ab6fbf5e3da1820 | $10,365,496 | 6.0 | NEW |
+| 4 | Chainlink CCIP Router | ethereum | 0x80226fc0ee2b096224eeac085bb9a8cba1146f7d | $1,686,916,258 | 6.0 | NEW |
+| 5 | Connext Diamond | ethereum | 0x8898b472c54c31894e3b9bb83cea802a5d0e63c6 | $17,591 | 6.0 | NEW |
+| 6 | deBridge Gate | ethereum | 0x43de2d77bf8027e25dbd179b491e8d64f38398aa | $1,366,908 | 6.0 | NEW |
+| 7 | Hop L1 Bridge | ethereum | 0xb8901acb165ed027e32754e0ffe830802919727f | $2,924,880 | 6.0 | NEW |
+| 8 | Ink L1 Standard Bridge | ink | 0x4200000000000000000000000000000000000010 | $37,304,031 | 6.0 | NEW |
+| 9 | Robinhood L1 ERC20 Gateway | robinhood | 0x1e324b9316138ca9a73f960213621ad1aaf01b89 | manual | 6.0 | NEW |
+| 10 | Synapse Bridge | ethereum | 0x2796317b0ff8538f253012862c06787adfb8ceb6 | manual | 6.0 | NEW |
+| 11 | Across SpokePool | ethereum | 0x5c7bcd6e7de5423a257d81b442095a1a6ced35c5 | $11,700,608 | 3.0 | SAFE |
+| 12 | Ink L1 Standard Bridge | ethereum | 0x88ff1e5b602916615391f55854588efcbb7663f0 | $37,304,031 | 3.0 | NEW |
+| 13 | Linea L1 Message Service | ethereum | 0xd19d4b5d358258f05d7b411e21a1460d11b0876f | $42,469,884 | 3.0 | NEW |
+| 14 | Robinhood L1 ERC20 Gateway | ethereum | 0x85001cc4867c5e1c22da4b79bb8852b9e2a06da0 | manual | 3.0 | NEW |
+| 15 | zkSync Era Diamond | ethereum | 0x32400084c286cf3e17e7b677ea9583e60a000324 | manual | 3.0 | NEW |
+| 16 | Stargate V2 Pool | bsc | 0x4a364f8c717caad9a442737eb7b8a55cc6cf18d8 | $73,492,672 | 2.0 | NEW |
+| 17 | Polygon PoS RootChainManager | ethereum | 0xa0c68c638235ee32657e8f720a23cec1bfc77c77 | $2,133,723,690 | 1.0 | NEW |
 ## CURSOR
 
 current: #1

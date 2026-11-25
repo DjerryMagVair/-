@@ -5,12 +5,13 @@
   "chain": "ethereum",
   "addr": "0x8898b472c54c31894e3b9bb83cea802a5d0e63c6",
   "tvl": 17591.35053217013,
-  "score": 6,
+  "score": 6.0,
   "factors": {
     "tvl_factor": 3,
     "age_factor": 1,
     "custom_factor": 2,
-    "chain_factor": 1
+    "chain_factor": 1,
+    "audit_factor": 1.0
   },
   "listed_at": "2022-03-01T00:00:00+00:00",
   "verify": {
@@ -21,5 +22,6 @@
     "bridge_surface": false,
     "rpc_calls": 3
   },
-  "llama_ok": true
+  "llama_ok": true,
+  "force": false
 }

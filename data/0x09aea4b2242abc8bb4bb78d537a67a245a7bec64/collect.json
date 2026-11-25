@@ -4,13 +4,14 @@
   "name": "Across SpokePool",
   "chain": "base",
   "addr": "0x09aea4b2242abc8bb4bb78d537a67a245a7bec64",
-  "tvl": 11732402.765809292,
-  "score": 12,
+  "tvl": 11700608.382346267,
+  "score": 6.0,
   "factors": {
     "tvl_factor": 3,
     "age_factor": 1,
     "custom_factor": 2,
-    "chain_factor": 2
+    "chain_factor": 2,
+    "audit_factor": 0.5
   },
   "listed_at": "2022-01-07T01:34:36+00:00",
   "verify": {
@@ -21,5 +22,6 @@
     "bridge_surface": true,
     "rpc_calls": 3
   },
-  "llama_ok": true
+  "llama_ok": true,
+  "force": false
 }

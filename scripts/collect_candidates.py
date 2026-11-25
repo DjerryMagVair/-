@@ -36,6 +36,8 @@ ALLOWLIST_PATH = ROOT / "config" / "bridge_allowlist.json"
 DATA_DIR = ROOT / "data"
 
 NEW_CHAINS = {"base", "ink", "robinhood", "bsc"}
+# Protocols with public audits/bounties — down-rank attack-surface score
+AUDITED_DEFAULT = {"across", "stargate", "wormhole"}
 
 
 def load_allowlist() -> dict[str, Any]:
@@ -116,21 +118,29 @@ def chain_factor(chain: str) -> int:
     return 2 if chain.lower() in NEW_CHAINS else 1
 
 
+def audit_factor(is_audited: bool) -> float:
+    """Across / Stargate / Wormhole (public audits+bounty) → 0.5; else 1.0."""
+    return 0.5 if is_audited else 1.0
+
+
 def attack_surface_score(
     *,
     tvl: float,
     listed_at: datetime | None,
     is_custom: bool,
     chain: str,
+    is_audited: bool = False,
     now: datetime | None = None,
-) -> int:
+) -> float:
     now = now or datetime.now(timezone.utc)
-    return (
+    raw = (
         tvl_factor(tvl)
         * age_factor(_age_months(listed_at, now))
         * custom_factor(is_custom)
         * chain_factor(chain)
+        * audit_factor(is_audited)
     )
+    return round(float(raw), 2)
 
 
 def _match_llama(meta: dict[str, Any], index: dict[str, dict[str, Any]]) -> dict[str, Any]:
@@ -203,6 +213,7 @@ def verify_candidate(addr: str, chain: str, *, allowlisted: bool = True) -> dict
 
 
 def main() -> int:
+    force = "--force" in sys.argv
     cfg = load_config()
     allowlist = load_allowlist()
     now = datetime.now(timezone.utc)
@@ -234,6 +245,7 @@ def main() -> int:
         tvl = float(llama_hit.get("tvl") or 0)
         listed = llama_hit.get("listed_at") or _parse_listed_at(meta.get("listed_at"))
         is_custom = bool(meta.get("custom", True))
+        is_audited = bool(meta.get("audited", protocol in AUDITED_DEFAULT))
         display = str(meta.get("display_name") or protocol)
         role = str(meta.get("role") or "")
 
@@ -254,18 +266,18 @@ def main() -> int:
             prior = existing.get(addr)
             excl = excluded_by_addr.get(addr)
 
-            # Skip only wrong-contract exclusions; SAFE closes stay in QUEUE as SAFE.
-            if excl and "wrong" in (excl.note or "").lower():
+            # EXCLUDED → skip unless --force (explicit re-audit)
+            if excl and not force:
                 skipped.append(
                     {
                         "protocol": protocol,
                         "chain": chain,
                         "addr": addr,
-                        "reason": "excluded_wrong_contract",
+                        "reason": "excluded",
                     }
                 )
                 continue
-            if prior and prior.stage.upper() == "EXCLUDED":
+            if prior and prior.stage.upper() == "EXCLUDED" and not force:
                 skipped.append(
                     {
                         "protocol": protocol,
@@ -277,15 +289,18 @@ def main() -> int:
                 continue
 
             score = attack_surface_score(
-                tvl=tvl, listed_at=listed, is_custom=is_custom, chain=chain, now=now
+                tvl=tvl,
+                listed_at=listed,
+                is_custom=is_custom,
+                chain=chain,
+                is_audited=is_audited,
+                now=now,
             )
             tvl_str = f"${tvl:,.0f}" if tvl > 0 else "manual"
 
-            # Preserve prior stage; map EXCLUDED-SAFE notes → SAFE
+            # Preserve prior stage (SAFE stays SAFE; do not resurrect from EXCLUDED)
             if prior:
                 stage = prior.stage
-            elif excl and "safe" in (excl.note or "").lower():
-                stage = "SAFE"
             else:
                 stage = "NEW"
 
@@ -315,6 +330,7 @@ def main() -> int:
                     "age_factor": age_factor(_age_months(listed, now)),
                     "custom_factor": custom_factor(is_custom),
                     "chain_factor": chain_factor(chain),
+                    "audit_factor": audit_factor(is_audited),
                 },
                 "listed_at": listed.isoformat() if isinstance(listed, datetime) else None,
                 "verify": {
@@ -326,6 +342,7 @@ def main() -> int:
                     "rpc_calls": verdict["rpc_calls"],
                 },
                 "llama_ok": llama_ok,
+                "force": force,
             }
             reports.append(report)
             out_dir = DATA_DIR / addr
@@ -361,12 +378,12 @@ def main() -> int:
     by_addr: dict[str, QueueRow] = {}
     for row in verified_rows:
         prev = by_addr.get(row.addr)
-        if prev is None or int(row.score or 0) > int(prev.score or 0):
+        if prev is None or float(row.score or 0) > float(prev.score or 0):
             by_addr[row.addr] = row
 
     ranked = sorted(
         by_addr.values(),
-        key=lambda r: (-int(r.score or 0), r.name.lower()),
+        key=lambda r: (-float(r.score or 0), r.name.lower()),
     )
     for i, row in enumerate(ranked, start=1):
         row.num = i
@@ -374,8 +391,9 @@ def main() -> int:
     replace_queue(
         ranked,
         comment=(
-            "attack-surface score = tvl×age×custom×chain; "
-            "addrs from config/bridge_allowlist.json (not DefiLlama address)"
+            "score = tvl×age×custom×chain×audit; "
+            "EXCLUDED skipped unless --force; "
+            "addrs from config/bridge_allowlist.json"
         ),
     )
 

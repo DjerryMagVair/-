@@ -10,3 +10,4 @@
 - 2026-11-25: stage2 Stargate Arb 0xa45b… → SAFE
 - 2026-11-25: stage1 Across SpokePool 0x5c7b… → STAGE2
 - 2026-11-25: rework collect — allowlist + attack-surface score; CURSOR Across Base
+- 2026-11-25: collect EXCLUDED-skip + audit_factor; Across Base stage1 → CHECKLIST (3 SpokePool hits)

@@ -3,11 +3,13 @@
   "addr": "0x09aea4b2242abc8bb4bb78d537a67a245a7bec64",
   "name": "Across SpokePool",
   "chain": "base",
-  "stage": "NEW",
-  "score": "12",
-  "awaiting": null,
-  "next_cmd": "./run.sh stage1 0x09aea4b2242abc8bb4bb78d537a67a245a7bec64",
-  "reports": {},
-  "updated_at": "2026-11-25T14:18:40Z",
-  "note": "collect reworked: attack-surface score; CURSOR=#1 Across Base"
+  "stage": "CHECKLIST",
+  "score": "6.0",
+  "awaiting": "verdicts/stage1/0x09aea4b2242abc8bb4bb78d537a67a245a7bec64.json",
+  "next_cmd": null,
+  "reports": {
+    "stage1": "data/0x09aea4b2242abc8bb4bb78d537a67a245a7bec64/stage1.json"
+  },
+  "updated_at": "2026-11-25T14:32:25Z",
+  "note": "PR#2 fixes applied; awaiting strategist SAFE|EXCLUDED|STAGE2"
 }

@@ -9,7 +9,8 @@ arg="${2:-}"
 
 case "$cmd" in
   collect)
-    python3 scripts/collect_candidates.py
+    # optional: --force to re-audit EXCLUDED addresses
+    python3 scripts/collect_candidates.py "${@:2}"
     ;;
   stage1)
     [[ -n "$arg" ]] || { echo "usage: $0 stage1 <addr>" >&2; exit 2; }

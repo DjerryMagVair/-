@@ -4,13 +4,14 @@
   "name": "Ink L1 Standard Bridge",
   "chain": "ink",
   "addr": "0x4200000000000000000000000000000000000010",
-  "tvl": 37444247.509321995,
-  "score": 6,
+  "tvl": 37304030.589731075,
+  "score": 6.0,
   "factors": {
     "tvl_factor": 3,
     "age_factor": 1,
     "custom_factor": 1,
-    "chain_factor": 2
+    "chain_factor": 2,
+    "audit_factor": 1.0
   },
   "listed_at": "2024-12-01T00:00:00+00:00",
   "verify": {
@@ -18,8 +19,9 @@
     "reason": "ok",
     "code_size": 2059,
     "verified": true,
-    "bridge_surface": true,
+    "bridge_surface": false,
     "rpc_calls": 3
   },
-  "llama_ok": true
+  "llama_ok": true,
+  "force": false
 }
