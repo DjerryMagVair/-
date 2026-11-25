@@ -1,0 +1,30 @@
+{
+  "protocol": "pumpbtc",
+  "role": "BTCWrapper",
+  "name": "PumpBTC",
+  "chain": "bsc",
+  "addr": "0xb7c0007ab75350c582d5eab1862b872b5cf53f0c",
+  "tvl": 20232026.963346947,
+  "score": 16.0,
+  "factors": {
+    "tvl_factor": 4.0,
+    "age_factor": 1.0,
+    "custom_factor": 2.0,
+    "chain_factor": 2.0,
+    "audit_factor": 1.0,
+    "vanilla_factor": 1.0
+  },
+  "why": "BSC BTC wrapper/bridge-like mint surface, mid TVL",
+  "vanilla": false,
+  "listed_at": "2024-07-25T13:26:47+00:00",
+  "verify": {
+    "ok": true,
+    "reason": "ok",
+    "code_size": 6163,
+    "verified": null,
+    "bridge_surface": false,
+    "rpc_calls": 3
+  },
+  "llama_ok": true,
+  "force": true
+}

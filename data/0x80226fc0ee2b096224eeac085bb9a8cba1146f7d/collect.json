@@ -1,0 +1,27 @@
+{
+  "protocol": "ccip",
+  "role": "Router",
+  "name": "Chainlink CCIP Router",
+  "chain": "ethereum",
+  "addr": "0x80226fc0ee2b096224eeac085bb9a8cba1146f7d",
+  "tvl": 1686916257.8538156,
+  "score": 6.0,
+  "factors": {
+    "tvl_factor": 1,
+    "age_factor": 3,
+    "custom_factor": 2,
+    "chain_factor": 1,
+    "audit_factor": 1.0
+  },
+  "listed_at": "2026-06-02T23:29:24+00:00",
+  "verify": {
+    "ok": true,
+    "reason": "ok",
+    "code_size": 11130,
+    "verified": false,
+    "bridge_surface": false,
+    "rpc_calls": 3
+  },
+  "llama_ok": true,
+  "force": false
+}

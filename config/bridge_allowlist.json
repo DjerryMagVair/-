@@ -1,0 +1,186 @@
+{
+  "_comment": "Hunt allowlist: mid-TVL / fresh / custom bridge contracts (NOT Llama tokens). audited/vanilla down-rank score. Source: official docs.",
+  "sanko": {
+    "display_name": "Sanko Bridge",
+    "role": "Bridge",
+    "llama_slugs": ["sanko-bridge", "sanko"],
+    "custom": true,
+    "audited": false,
+    "vanilla": false,
+    "listed_at": "2024-06-01",
+    "why": "TVL ~$0.6M, Arbitrum, small surface — classic mid-tier hunt target",
+    "chains": {
+      "arbitrum": "0x8b0e6f19ee57089f7649a455d89d7bc6314d04e8"
+    }
+  },
+  "sonic-gateway": {
+    "display_name": "Sonic Gateway TokenDeposit",
+    "role": "TokenDeposit",
+    "llama_slugs": ["sonic-gateway", "sonic"],
+    "custom": true,
+    "audited": false,
+    "vanilla": false,
+    "listed_at": "2024-12-01",
+    "why": "Custom L1↔Sonic gateway (state oracle + token pairs), not OP-stack clone",
+    "chains": {
+      "ethereum": "0xa1E2481a9CD0Cb0447EeB1cbc26F1b3fff3bec20"
+    }
+  },
+  "hemibtc": {
+    "display_name": "hemiBTC Bridge",
+    "role": "BTCBridge",
+    "llama_slugs": ["hemibtc", "hemi"],
+    "custom": true,
+    "audited": false,
+    "vanilla": false,
+    "listed_at": "2025-03-01",
+    "why": "BTC-side custom mint/lock surface, mid TVL",
+    "chains": {
+      "ethereum": "0xeb964a1a6fab73b8c72a0d15c7337fa4804f484d"
+    }
+  },
+  "sophon-shared-bridge": {
+    "display_name": "Sophon Shared Bridge",
+    "role": "SharedBridge",
+    "llama_slugs": ["sophon-bridge", "sophon"],
+    "custom": true,
+    "audited": false,
+    "vanilla": false,
+    "listed_at": "2024-12-01",
+    "why": "ZK shared bridge; chain wind-down → edge-case withdraw/claim paths",
+    "chains": {
+      "ethereum": "0xD7f9f54194C633F36CCD5F3da84ad4a1c38cB2cB"
+    }
+  },
+  "pumpbtc": {
+    "display_name": "PumpBTC",
+    "role": "BTCWrapper",
+    "llama_slugs": ["pumpbtc"],
+    "custom": true,
+    "audited": false,
+    "vanilla": false,
+    "listed_at": "2024-07-01",
+    "why": "BSC BTC wrapper/bridge-like mint surface, mid TVL",
+    "chains": {
+      "bsc": "0xb7c0007ab75350c582d5eab1862b872b5cf53f0c"
+    }
+  },
+  "debridge": {
+    "display_name": "deBridge Gate",
+    "role": "Gate",
+    "llama_slugs": ["debridge"],
+    "custom": true,
+    "audited": false,
+    "vanilla": false,
+    "listed_at": "2022-06-01",
+    "why": "Custom message+gate logic, mid TVL, not vanilla L2",
+    "chains": {
+      "ethereum": "0x43dE2d77BF8027e25dBD179B491e8d64f38398aA"
+    }
+  },
+  "allbridge": {
+    "display_name": "Allbridge Core",
+    "role": "Bridge",
+    "llama_slugs": ["allbridge-core", "allbridge"],
+    "custom": true,
+    "audited": false,
+    "vanilla": false,
+    "listed_at": "2022-01-01",
+    "why": "Custom multi-chain core, smaller than mega-bridges",
+    "chains": {
+      "ethereum": "0xB753548F6E010e7e680BA186F9Ca1BdAB2E90cf2"
+    }
+  },
+  "synapse": {
+    "display_name": "Synapse Bridge",
+    "role": "SynapseBridge",
+    "llama_slugs": ["synapse"],
+    "custom": true,
+    "audited": false,
+    "vanilla": false,
+    "listed_at": "2021-09-01",
+    "why": "Custom AMP/kappa messaging — historically bug-prone class",
+    "chains": {
+      "ethereum": "0x2796317b0fF8538F253012862c06787Adfb8cEb6"
+    }
+  },
+  "hop": {
+    "display_name": "Hop L1 Bridge",
+    "role": "L1_Bridge",
+    "llama_slugs": ["hop-protocol", "hop"],
+    "custom": true,
+    "audited": false,
+    "vanilla": false,
+    "listed_at": "2021-07-01",
+    "why": "Custom hToken/bonder model; mid TVL remnant",
+    "chains": {
+      "ethereum": "0xb8901acB165ed027E32754E0FFe830802919727f"
+    }
+  },
+  "cbridge": {
+    "display_name": "Celer cBridge",
+    "role": "CBridge",
+    "llama_slugs": ["cbridge", "celer-bridge"],
+    "custom": true,
+    "audited": false,
+    "vanilla": false,
+    "listed_at": "2021-08-01",
+    "why": "SSG/SSP custom path; still mid-tier vs Portal/Stargate",
+    "chains": {
+      "ethereum": "0x5427FEFA711Eff984124bFBB1AB6fbf5E3DA1820"
+    }
+  },
+  "connext": {
+    "display_name": "Connext Diamond",
+    "role": "Diamond",
+    "llama_slugs": ["connext", "connext-network"],
+    "custom": true,
+    "audited": false,
+    "vanilla": false,
+    "listed_at": "2022-03-01",
+    "why": "Diamond facets = large attack surface, low Llama TVL",
+    "chains": {
+      "ethereum": "0x8898B472C54c31894e3B9bb83cEA802a5d0e63C6"
+    }
+  },
+  "ink": {
+    "display_name": "Ink L1 Standard Bridge",
+    "role": "L1StandardBridge",
+    "llama_slugs": ["ink", "ink-bridge"],
+    "custom": false,
+    "audited": false,
+    "vanilla": true,
+    "listed_at": "2024-12-01",
+    "why": "New chain but vanilla OP-stack — lower priority (config diffs only)",
+    "chains": {
+      "ethereum": "0x88FF1e5b602916615391F55854588EFcBB7663f0",
+      "ink": "0x4200000000000000000000000000000000000010"
+    }
+  },
+  "robinhood": {
+    "display_name": "Robinhood L1 ERC20 Gateway",
+    "role": "L1ERC20Gateway",
+    "llama_slugs": ["robinhood-chain", "robinhood"],
+    "custom": false,
+    "audited": false,
+    "vanilla": true,
+    "listed_at": "2025-06-01",
+    "why": "Very new chain; vanilla Arb gateway — look for custom token adapters only",
+    "chains": {
+      "ethereum": "0x85001CC4867C5e1C22dA4B79BB8852B9e2a06da0"
+    }
+  },
+  "linea": {
+    "display_name": "Linea L1 Message Service",
+    "role": "MessageService",
+    "llama_slugs": ["linea-bridge", "linea"],
+    "custom": true,
+    "audited": true,
+    "vanilla": false,
+    "listed_at": "2023-07-01",
+    "why": "Custom message service; audited → down-ranked",
+    "chains": {
+      "ethereum": "0xd19d4B5d358258f05D7B411E21A1460D11B0876F"
+    }
+  }
+}

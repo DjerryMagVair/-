@@ -1,0 +1,27 @@
+{
+  "protocol": "zksync",
+  "role": "DiamondProxy",
+  "name": "zkSync Era Diamond",
+  "chain": "ethereum",
+  "addr": "0x32400084c286cf3e17e7b677ea9583e60a000324",
+  "tvl": 0.0,
+  "score": 3.0,
+  "factors": {
+    "tvl_factor": 3,
+    "age_factor": 1,
+    "custom_factor": 1,
+    "chain_factor": 1,
+    "audit_factor": 1.0
+  },
+  "listed_at": "2023-03-01T00:00:00+00:00",
+  "verify": {
+    "ok": true,
+    "reason": "ok",
+    "code_size": 4247,
+    "verified": false,
+    "bridge_surface": false,
+    "rpc_calls": 3
+  },
+  "llama_ok": true,
+  "force": false
+}

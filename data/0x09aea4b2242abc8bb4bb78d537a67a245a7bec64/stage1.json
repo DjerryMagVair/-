@@ -1,0 +1,131 @@
+{
+  "addr": "0x09aea4b2242abc8bb4bb78d537a67a245a7bec64",
+  "chain": "base",
+  "name": "Across SpokePool",
+  "code_size": 680,
+  "bridge_surface": true,
+  "spokepool_hits": [
+    "chainId()",
+    "getCurrentTime()",
+    "numberOfDeposits()"
+  ],
+  "spokepool_hit_count": 3,
+  "surface": {
+    "bridge_surface": true,
+    "hits": [
+      "chainId()",
+      "getCurrentTime()",
+      "numberOfDeposits()"
+    ],
+    "strong_hits": [
+      "chainId()",
+      "getCurrentTime()",
+      "numberOfDeposits()"
+    ],
+    "spokepool_hits": [
+      "chainId()",
+      "getCurrentTime()",
+      "numberOfDeposits()"
+    ],
+    "hit_count": 3,
+    "rpc_batches": 3,
+    "code_size": 680,
+    "details": [
+      {
+        "sig": "owner()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "chainId()",
+        "ok": true,
+        "raw_ok": true
+      },
+      {
+        "sig": "relayer()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "oracle()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "nativeToken()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "poolToken()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "spokePool()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "deployer()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "hubPool()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "getCurrentTime()",
+        "ok": true,
+        "raw_ok": true
+      },
+      {
+        "sig": "numberOfDeposits()",
+        "ok": true,
+        "raw_ok": true
+      },
+      {
+        "sig": "tokenImplementation()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "wormhole()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "tokenBridge()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "getChainId()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "totalMinted()",
+        "ok": false,
+        "raw_ok": false
+      }
+    ],
+    "label": "bridge-surface: true"
+  },
+  "eip1967_impl": "0xf23c6c04a2b88e8651fe99bbdccbb5c9d306e6b0",
+  "eip1967_admin": null,
+  "owner": null,
+  "owner_sig": null,
+  "verified": false,
+  "explorer": {
+    "verified": false,
+    "contract_name": null,
+    "error": "unexpected explorer payload status=0",
+    "kind": "etherscan"
+  },
+  "rpc_used": 5,
+  "stage": "CHECKLIST",
+  "reason": "spokepool_surface_needs_invariant_checks"
+}

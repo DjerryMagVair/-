@@ -9,7 +9,11 @@ arg="${2:-}"
 
 case "$cmd" in
   collect)
-    python3 scripts/collect_candidates.py
+    # optional: --force to re-audit EXCLUDED addresses
+    python3 scripts/collect_candidates.py "${@:2}"
+    ;;
+  discover)
+    python3 scripts/discover_candidates.py
     ;;
   stage1)
     [[ -n "$arg" ]] || { echo "usage: $0 stage1 <addr>" >&2; exit 2; }
@@ -31,7 +35,7 @@ case "$cmd" in
     fi
     ;;
   *)
-    echo "usage: $0 {collect|stage1 <addr>|stage2 <addr>|stage3 [addr]}" >&2
+    echo "usage: $0 {collect|discover|stage1 <addr>|stage2 <addr>|stage3 [addr]}" >&2
     exit 2
     ;;
 esac

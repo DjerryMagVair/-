@@ -1,0 +1,30 @@
+{
+  "protocol": "hop",
+  "role": "L1_Bridge",
+  "name": "Hop L1 Bridge",
+  "chain": "ethereum",
+  "addr": "0xb8901acb165ed027e32754e0ffe830802919727f",
+  "tvl": 2924880.387068597,
+  "score": 8.0,
+  "factors": {
+    "tvl_factor": 4.0,
+    "age_factor": 1.0,
+    "custom_factor": 2.0,
+    "chain_factor": 1.0,
+    "audit_factor": 1.0,
+    "vanilla_factor": 1.0
+  },
+  "why": "Custom hToken/bonder model; mid TVL remnant",
+  "vanilla": false,
+  "listed_at": "2021-07-01T00:00:00+00:00",
+  "verify": {
+    "ok": true,
+    "reason": "ok",
+    "code_size": 18447,
+    "verified": false,
+    "bridge_surface": false,
+    "rpc_calls": 3
+  },
+  "llama_ok": true,
+  "force": true
+}

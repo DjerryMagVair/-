@@ -7,21 +7,46 @@ from typing import Any
 from .rpc import ZERO_ADDR, eth_calls_batch, eth_get_code, selector
 
 # Probe signatures — selectors computed via Keccak, never hard-coded as magic.
-# Known expected 4-bytes (self-check): owner=0x8da5cb5b, wormhole=0x84acd1bb, …
+# Across SpokePool markers first (fill within 16-probe / 2-batch RPC budget).
 VIEW_SIGS: list[str] = [
+    # Across SpokePool
     "owner()",
+    "chainId()",
+    "relayer()",
+    "oracle()",
+    "nativeToken()",
+    "poolToken()",
+    "spokePool()",
+    "deployer()",
+    "hubPool()",
+    "getCurrentTime()",
+    "numberOfDeposits()",
+    # Wormhole / generic
     "tokenImplementation()",
     "wormhole()",
-    "chainId()",
     "tokenBridge()",
     "getChainId()",
     "totalMinted()",
     "totalLocked()",
-    # Stargate pool marker (OFT tokens like ZRO do not expose this)
     "stargateType()",
+    "localDomain()",
+    "getLocalDomain()",
+    # OP-stack / canonical L1↔L2
+    "messenger()",
+    "OTHER_BRIDGE()",
+    "otherBridge()",
+    "version()",
+    "paused()",
+    "portal()",
+    # Arbitrum / gateway style
+    "inbox()",
+    "router()",
+    "counterpartGateway()",
+    "l1GatewayRouter()",
 ]
 
 ARG_PROBES: list[tuple[str, str]] = [
+    ("fillStatus(uint256)", "uint256"),
     ("mint(address,uint256)", "address,uint256"),
     ("burn(uint256)", "uint256"),
     ("lock(address,uint256)", "address,uint256"),
@@ -32,7 +57,25 @@ ARG_PROBES: list[tuple[str, str]] = [
     ("setLockedAmount(uint256)", "uint256"),
     ("relayer(address)", "address"),
     ("oracle(address)", "address"),
+    ("depositETH(uint256)", "uint256"),
+    ("bridgeETH(uint256)", "uint256"),
 ]
+
+# Markers that identify Across SpokePool (stage1 gate: ≥2 required)
+SPOKEPOOL_MARKERS: set[str] = {
+    "fillStatus(uint256)",
+    "relayer()",
+    "oracle()",
+    "nativeToken()",
+    "poolToken()",
+    "spokePool()",
+    "chainId()",
+    "deployer()",
+    "owner()",
+    "hubPool()",
+    "getCurrentTime()",
+    "numberOfDeposits()",
+}
 
 
 def _enc_addr(addr: str = ZERO_ADDR) -> str:
@@ -68,6 +111,10 @@ def _is_hit(res: dict[str, Any]) -> bool:
     return len(result) > 2
 
 
+def spokepool_hits(hits: list[str] | set[str]) -> list[str]:
+    return [h for h in hits if h in SPOKEPOOL_MARKERS]
+
+
 def validate_bridge_surface(
     addr: str,
     chain: str,
@@ -93,6 +140,7 @@ def validate_bridge_surface(
             "bridge_surface": False,
             "hits": [],
             "hit_count": 0,
+            "spokepool_hits": [],
             "rpc_batches": rpc_batches,
             "code_size": 0,
             "details": [],
@@ -111,34 +159,25 @@ def validate_bridge_surface(
         probes.append({"to": addr, "data": _encode_probe(sig, kind), "from": from_addr})
         meta.append(sig)
 
-    # Cap remaining probes to 16 → 2 batches of 8
+    # Cap to 16 probes → ≤2 batches of 8 (RPC budget)
     probes = probes[:16]
     meta = meta[:16]
 
     hits: list[str] = []
     details: list[dict[str, Any]] = []
 
-    batch1, meta1 = probes[:8], meta[:8]
-    res1 = eth_calls_batch(chain, batch1)
-    rpc_batches += 1
-    for sig, res in zip(meta1, res1):
-        ok = _is_hit(res)
-        details.append({"sig": sig, "ok": ok, "raw_ok": bool(res.get("ok"))})
-        if ok:
-            hits.append(sig)
+    for offset in (0, 8):
+        batch, batch_meta = probes[offset : offset + 8], meta[offset : offset + 8]
+        if not batch:
+            break
+        res_batch = eth_calls_batch(chain, batch)
+        rpc_batches += 1
+        for sig, res in zip(batch_meta, res_batch):
+            ok = _is_hit(res)
+            details.append({"sig": sig, "ok": ok, "raw_ok": bool(res.get("ok"))})
+            if ok:
+                hits.append(sig)
 
-    if len(hits) < 2:
-        batch2, meta2 = probes[8:16], meta[8:16]
-        if batch2:
-            res2 = eth_calls_batch(chain, batch2)
-            rpc_batches += 1
-            for sig, res in zip(meta2, res2):
-                ok = _is_hit(res)
-                details.append({"sig": sig, "ok": ok, "raw_ok": bool(res.get("ok"))})
-                if ok:
-                    hits.append(sig)
-
-    # owner/mint/burn alone are common on tokens — require ≥1 strong probe.
     strong_set = {
         "tokenImplementation()",
         "wormhole()",
@@ -156,13 +195,37 @@ def validate_bridge_surface(
         "unlock(address,uint256)",
         "relayer(address)",
         "oracle(address)",
+        "relayer()",
+        "oracle()",
+        "nativeToken()",
+        "poolToken()",
+        "spokePool()",
+        "deployer()",
+        "fillStatus(uint256)",
+        "hubPool()",
+        "getCurrentTime()",
+        "numberOfDeposits()",
+        "localDomain()",
+        "getLocalDomain()",
+        "messenger()",
+        "OTHER_BRIDGE()",
+        "otherBridge()",
+        "portal()",
+        "inbox()",
+        "router()",
+        "counterpartGateway()",
+        "l1GatewayRouter()",
+        "depositETH(uint256)",
+        "bridgeETH(uint256)",
     }
     strong_hits = [h for h in hits if h in strong_set]
+    sp_hits = spokepool_hits(hits)
     surface = len(hits) >= 2 and len(strong_hits) >= 1
     return {
         "bridge_surface": surface,
         "hits": hits,
         "strong_hits": strong_hits,
+        "spokepool_hits": sp_hits,
         "hit_count": len(hits),
         "rpc_batches": rpc_batches,
         "code_size": code_size,

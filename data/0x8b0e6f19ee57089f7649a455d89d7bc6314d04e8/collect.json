@@ -1,0 +1,30 @@
+{
+  "protocol": "sanko",
+  "role": "Bridge",
+  "name": "Sanko Bridge",
+  "chain": "arbitrum",
+  "addr": "0x8b0e6f19ee57089f7649a455d89d7bc6314d04e8",
+  "tvl": 615847.853487667,
+  "score": 8.0,
+  "factors": {
+    "tvl_factor": 4.0,
+    "age_factor": 1.0,
+    "custom_factor": 2.0,
+    "chain_factor": 1.0,
+    "audit_factor": 1.0,
+    "vanilla_factor": 1.0
+  },
+  "why": "TVL ~$0.6M, Arbitrum, small surface \u2014 classic mid-tier hunt target",
+  "vanilla": false,
+  "listed_at": "2024-06-20T14:46:08+00:00",
+  "verify": {
+    "ok": true,
+    "reason": "ok",
+    "code_size": 5378,
+    "verified": null,
+    "bridge_surface": false,
+    "rpc_calls": 3
+  },
+  "llama_ok": true,
+  "force": true
+}

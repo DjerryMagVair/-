@@ -44,16 +44,20 @@ STATE.md — единственный источник правды.
   не payload для атаки.
 
 ## Примечания по источникам
-- DefiLlama `GET /bridges` часто 402 (paid). `collect_candidates.py`
-  пробует `/bridges`, затем fallback на `GET /protocols` (category содержит Bridge),
-  TVL > $1M, адрес вида `ethereum:0x…`.
-- Поле `address` у Llama часто = token/governance. В QUEUE только после
-  `validate_bridge_surface(addr) == true` (≥2 non-empty eth_call probes).
-- RPC: primary + fallbacks в `config/rpc.json` (llamarpc может отдавать 525).
-- EXCLUDED дедуп по **address** и по (name, chain).
+- Адреса мостов — только из `config/bridge_allowlist.json` (TokenBridge/Pool/SpokePool…).
+  DefiLlama `address` **не** используется (часто token/governance).
+- DefiLlama `GET /protocols` (category Bridge*) — только TVL + `listedAt` для score.
+- Hunt score = `tvl × age × custom × chain × audit × vanilla`
+  (mid $0.5–30M и age&lt;12м вверх; mega-TVL / audited / vanilla OP-Arb вниз).
+- Адреса только из allowlist (docs). `./run.sh discover` → `data/discovery.json`
+  (Llama = TVL/age + needs-address, без постановки в QUEUE).
+- Перед QUEUE: `eth_getCode` + explorer verified + `validate_bridge_surface`.
+- Адрес в EXCLUDED → skip (re-audit только с `./run.sh collect --force`).
+- RPC: primary + fallbacks в `config/rpc.json` (цепи: ethereum, base, arbitrum, bsc, ink, robinhood).
 
 ## Команды
 ```
+./run.sh discover
 ./run.sh collect
 ./run.sh stage1 <addr>
 ./run.sh stage2 <addr>

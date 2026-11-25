@@ -1,0 +1,232 @@
+{
+  "ts": "2026-11-25T14:56:02.686828+00:00",
+  "top10": [
+    {
+      "rank": 1,
+      "name": "hemiBTC Bridge",
+      "chain": "ethereum",
+      "addr": "0xeb964a1a6fab73b8c72a0d15c7337fa4804f484d",
+      "tvl": "$1,602,754",
+      "score": "16.0",
+      "code_size": 9437,
+      "eip1967_impl": null,
+      "eip1967_admin": null,
+      "owner": "0x694fa0816999da16e8783c0f5cde68c13a33c4e6",
+      "bridge_surface": false,
+      "hits": [
+        "owner()"
+      ],
+      "verified": false,
+      "tags": [
+        "ownable",
+        "unverified-or-api",
+        "high-score",
+        "btc-bridge"
+      ],
+      "verdict_hint": "PRIORITY"
+    },
+    {
+      "rank": 2,
+      "name": "PumpBTC",
+      "chain": "bsc",
+      "addr": "0xb7c0007ab75350c582d5eab1862b872b5cf53f0c",
+      "tvl": "$20,232,027",
+      "score": "16.0",
+      "code_size": 6163,
+      "eip1967_impl": null,
+      "eip1967_admin": null,
+      "owner": "0x1553b5053ebf7add0f202d41e44aa43c41cfc421",
+      "bridge_surface": false,
+      "hits": [
+        "owner()"
+      ],
+      "verified": null,
+      "tags": [
+        "ownable",
+        "unverified-or-api",
+        "high-score",
+        "btc-bridge"
+      ],
+      "verdict_hint": "PRIORITY"
+    },
+    {
+      "rank": 3,
+      "name": "Sonic Gateway TokenDeposit",
+      "chain": "ethereum",
+      "addr": "0xa1e2481a9cd0cb0447eeb1cbc26f1b3fff3bec20",
+      "tvl": "$3,187,071",
+      "score": "16.0",
+      "code_size": 163,
+      "eip1967_impl": "0xade2ef0101278fe11490f2ee2aad7915a094ade9",
+      "eip1967_admin": null,
+      "owner": "0x9fe65a5418850015a9d8ad3ca50d6a0b9769fbe0",
+      "bridge_surface": false,
+      "hits": [
+        "owner()"
+      ],
+      "verified": false,
+      "tags": [
+        "thin-proxy",
+        "upgradeable",
+        "ownable",
+        "unverified-or-api",
+        "high-score",
+        "custom-gateway"
+      ],
+      "verdict_hint": "PRIORITY"
+    },
+    {
+      "rank": 4,
+      "name": "Sophon Shared Bridge",
+      "chain": "ethereum",
+      "addr": "0xd7f9f54194c633f36ccd5f3da84ad4a1c38cb2cb",
+      "tvl": "$3,691,294",
+      "score": "16.0",
+      "code_size": 2837,
+      "eip1967_impl": "0x39a847748adfbb3a9de4a401a0f1d90eced3e669",
+      "eip1967_admin": "0xc2a36181fb524a6befe639afed37a67e77d62cf1",
+      "owner": "0xe30dca3047b37dc7d88849de4a4dc07937ad5ab3",
+      "bridge_surface": false,
+      "hits": [
+        "owner()"
+      ],
+      "verified": false,
+      "tags": [
+        "upgradeable",
+        "ownable",
+        "unverified-or-api",
+        "high-score",
+        "zk-bridge"
+      ],
+      "verdict_hint": "PRIORITY"
+    },
+    {
+      "rank": 5,
+      "name": "Celer cBridge",
+      "chain": "ethereum",
+      "addr": "0x5427fefa711eff984124bfbb1ab6fbf5e3da1820",
+      "tvl": "$10,365,496",
+      "score": "8.0",
+      "code_size": 20574,
+      "eip1967_impl": null,
+      "eip1967_admin": null,
+      "owner": "0xf380166f8490f24af32bf47d1aa217fba62b6575",
+      "bridge_surface": false,
+      "hits": [
+        "owner()"
+      ],
+      "verified": false,
+      "tags": [
+        "ownable",
+        "unverified-or-api"
+      ],
+      "verdict_hint": "WORTH_STAGE1"
+    },
+    {
+      "rank": 6,
+      "name": "deBridge Gate",
+      "chain": "ethereum",
+      "addr": "0x43de2d77bf8027e25dbd179b491e8d64f38398aa",
+      "tvl": "$1,366,908",
+      "score": "8.0",
+      "code_size": 2141,
+      "eip1967_impl": "0x797161bcc625155d2302251404ccb93c2632658e",
+      "eip1967_admin": "0xe4427af3555cd9303d728c491364fadfdd7494fe",
+      "owner": null,
+      "bridge_surface": false,
+      "hits": [
+        "getChainId()"
+      ],
+      "verified": false,
+      "tags": [
+        "upgradeable",
+        "unverified-or-api"
+      ],
+      "verdict_hint": "WORTH_STAGE1"
+    },
+    {
+      "rank": 7,
+      "name": "Hop L1 Bridge",
+      "chain": "ethereum",
+      "addr": "0xb8901acb165ed027e32754e0ffe830802919727f",
+      "tvl": "$2,924,880",
+      "score": "8.0",
+      "code_size": 18447,
+      "eip1967_impl": null,
+      "eip1967_admin": null,
+      "owner": null,
+      "bridge_surface": false,
+      "hits": [
+        "getChainId()"
+      ],
+      "verified": false,
+      "tags": [
+        "unverified-or-api"
+      ],
+      "verdict_hint": "WORTH_STAGE1"
+    },
+    {
+      "rank": 8,
+      "name": "Sanko Bridge",
+      "chain": "arbitrum",
+      "addr": "0x8b0e6f19ee57089f7649a455d89d7bc6314d04e8",
+      "tvl": "$615,848",
+      "score": "8.0",
+      "code_size": 5378,
+      "eip1967_impl": null,
+      "eip1967_admin": null,
+      "owner": null,
+      "bridge_surface": false,
+      "hits": [
+        "owner()"
+      ],
+      "verified": null,
+      "tags": [
+        "unverified-or-api"
+      ],
+      "verdict_hint": "WORTH_STAGE1"
+    },
+    {
+      "rank": 9,
+      "name": "Allbridge Core",
+      "chain": "ethereum",
+      "addr": "0xb753548f6e010e7e680ba186f9ca1bdab2e90cf2",
+      "tvl": "manual",
+      "score": "6.0",
+      "code_size": 3459,
+      "eip1967_impl": null,
+      "eip1967_admin": null,
+      "owner": "0x1a9c8182c09f50c8318d769245bea52c32be35bc",
+      "bridge_surface": false,
+      "hits": [
+        "owner()"
+      ],
+      "verified": false,
+      "tags": [
+        "ownable",
+        "unverified-or-api"
+      ],
+      "verdict_hint": "WORTH_STAGE1"
+    },
+    {
+      "rank": 10,
+      "name": "Synapse Bridge",
+      "chain": "ethereum",
+      "addr": "0x2796317b0ff8538f253012862c06787adfb8ceb6",
+      "tvl": "manual",
+      "score": "6.0",
+      "code_size": 2004,
+      "eip1967_impl": "0x5b0000258c622551a1c7c45b9f860ef90200005b",
+      "eip1967_admin": "0x7b3c1f09088bdc9f136178e170ac668c8ed095f2",
+      "owner": null,
+      "bridge_surface": false,
+      "hits": [],
+      "verified": false,
+      "tags": [
+        "upgradeable",
+        "unverified-or-api"
+      ],
+      "verdict_hint": "WORTH_STAGE1"
+    }
+  ]
+}

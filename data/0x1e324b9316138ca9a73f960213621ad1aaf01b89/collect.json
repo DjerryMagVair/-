@@ -1,0 +1,27 @@
+{
+  "protocol": "robinhood",
+  "role": "L1ERC20Gateway",
+  "name": "Robinhood L1 ERC20 Gateway",
+  "chain": "robinhood",
+  "addr": "0x1e324b9316138ca9a73f960213621ad1aaf01b89",
+  "tvl": 0.0,
+  "score": 6.0,
+  "factors": {
+    "tvl_factor": 3,
+    "age_factor": 1,
+    "custom_factor": 1,
+    "chain_factor": 2,
+    "audit_factor": 1.0
+  },
+  "listed_at": "2025-06-01T00:00:00+00:00",
+  "verify": {
+    "ok": true,
+    "reason": "ok",
+    "code_size": 2202,
+    "verified": null,
+    "bridge_surface": false,
+    "rpc_calls": 3
+  },
+  "llama_ok": true,
+  "force": false
+}
