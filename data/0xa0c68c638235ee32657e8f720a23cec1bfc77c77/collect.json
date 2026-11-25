@@ -1,0 +1,25 @@
+{
+  "protocol": "polygon-pos",
+  "role": "RootChainManager",
+  "name": "Polygon PoS RootChainManager",
+  "chain": "ethereum",
+  "addr": "0xa0c68c638235ee32657e8f720a23cec1bfc77c77",
+  "tvl": 2140246998.1976037,
+  "score": 1,
+  "factors": {
+    "tvl_factor": 1,
+    "age_factor": 1,
+    "custom_factor": 1,
+    "chain_factor": 1
+  },
+  "listed_at": "2020-05-01T00:00:00+00:00",
+  "verify": {
+    "ok": true,
+    "reason": "ok",
+    "code_size": 2949,
+    "verified": false,
+    "bridge_surface": false,
+    "rpc_calls": 3
+  },
+  "llama_ok": true
+}

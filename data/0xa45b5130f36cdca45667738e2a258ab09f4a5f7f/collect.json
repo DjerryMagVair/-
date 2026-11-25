@@ -1,0 +1,25 @@
+{
+  "protocol": "stargate",
+  "role": "Pool",
+  "name": "Stargate V2 Pool",
+  "chain": "arbitrum",
+  "addr": "0xa45b5130f36cdca45667738e2a258ab09f4a5f7f",
+  "tvl": 73492671.85559379,
+  "score": 2,
+  "factors": {
+    "tvl_factor": 2,
+    "age_factor": 1,
+    "custom_factor": 1,
+    "chain_factor": 1
+  },
+  "listed_at": "2024-07-02T06:48:57+00:00",
+  "verify": {
+    "ok": true,
+    "reason": "ok",
+    "code_size": 22628,
+    "verified": null,
+    "bridge_surface": true,
+    "rpc_calls": 3
+  },
+  "llama_ok": true
+}

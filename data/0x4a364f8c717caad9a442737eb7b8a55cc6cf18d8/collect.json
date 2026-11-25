@@ -1,0 +1,25 @@
+{
+  "protocol": "stargate",
+  "role": "Pool",
+  "name": "Stargate V2 Pool",
+  "chain": "bsc",
+  "addr": "0x4a364f8c717caad9a442737eb7b8a55cc6cf18d8",
+  "tvl": 73492671.85559379,
+  "score": 4,
+  "factors": {
+    "tvl_factor": 2,
+    "age_factor": 1,
+    "custom_factor": 1,
+    "chain_factor": 2
+  },
+  "listed_at": "2024-07-02T06:48:57+00:00",
+  "verify": {
+    "ok": true,
+    "reason": "ok",
+    "code_size": 20911,
+    "verified": null,
+    "bridge_surface": false,
+    "rpc_calls": 3
+  },
+  "llama_ok": true
+}

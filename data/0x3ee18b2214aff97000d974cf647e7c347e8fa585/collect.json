@@ -1,0 +1,25 @@
+{
+  "protocol": "wormhole",
+  "role": "TokenBridge",
+  "name": "Wormhole TokenBridge",
+  "chain": "ethereum",
+  "addr": "0x3ee18b2214aff97000d974cf647e7c347e8fa585",
+  "tvl": 1075467648.204138,
+  "score": 1,
+  "factors": {
+    "tvl_factor": 1,
+    "age_factor": 1,
+    "custom_factor": 1,
+    "chain_factor": 1
+  },
+  "listed_at": "2022-03-13T05:11:15+00:00",
+  "verify": {
+    "ok": true,
+    "reason": "ok",
+    "code_size": 680,
+    "verified": false,
+    "bridge_surface": true,
+    "rpc_calls": 3
+  },
+  "llama_ok": true
+}

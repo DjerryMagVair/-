@@ -19,6 +19,7 @@ class QueueRow:
     addr: str
     tvl: str
     stage: str
+    score: str = ""
 
 
 @dataclass
@@ -67,6 +68,12 @@ def parse_queue(text: str | None = None) -> list[QueueRow]:
             num = int(cells[0])
         except ValueError:
             continue
+        # New: | # | name | chain | addr | tvl | score | stage |
+        # Old: | # | name | chain | addr | tvl | stage |
+        if len(cells) >= 7:
+            score, stage = cells[5], cells[6]
+        else:
+            score, stage = "", cells[5]
         rows.append(
             QueueRow(
                 num=num,
@@ -74,7 +81,8 @@ def parse_queue(text: str | None = None) -> list[QueueRow]:
                 chain=cells[2],
                 addr=cells[3].lower(),
                 tvl=cells[4],
-                stage=cells[5],
+                stage=stage,
+                score=score,
             )
         )
     return rows
@@ -149,6 +157,21 @@ def find_by_addr(addr: str) -> QueueRow | None:
     return None
 
 
+def _queue_header_lines() -> list[str]:
+    return [
+        "| # | name | chain | addr | tvl | score | stage |",
+        "|---|------|-------|------|-----|-------|-------|",
+    ]
+
+
+def _format_queue_row(row: QueueRow) -> str:
+    score = row.score if row.score != "" else "—"
+    return (
+        f"| {row.num} | {row.name} | {row.chain} | {row.addr} | "
+        f"{row.tvl} | {score} | {row.stage} |"
+    )
+
+
 def append_queue_rows(new_rows: list[QueueRow]) -> int:
     """Append rows to QUEUE table. Returns count added."""
     if not new_rows:
@@ -157,18 +180,27 @@ def append_queue_rows(new_rows: list[QueueRow]) -> int:
     sec_start, sec_end, body = _section(text, "QUEUE")
     lines = body.rstrip("\n").splitlines()
     if not any(l.strip().startswith("| #") for l in lines):
-        lines = [
-            "",
-            "| # | name | chain | addr | tvl | stage |",
-            "|---|------|-------|------|-----|-------|",
-        ]
+        lines = ["", *_queue_header_lines()]
     for row in new_rows:
-        lines.append(
-            f"| {row.num} | {row.name} | {row.chain} | {row.addr} | {row.tvl} | {row.stage} |"
-        )
+        lines.append(_format_queue_row(row))
     new_body = "\n".join(lines) + "\n\n"
     _write(text[:sec_start] + "## QUEUE\n" + new_body + text[sec_end:])
     return len(new_rows)
+
+
+def replace_queue(rows: list[QueueRow], *, comment: str | None = None) -> None:
+    """Rewrite entire QUEUE table (preserves section; optional HTML comment)."""
+    text = _read()
+    sec_start, sec_end, _ = _section(text, "QUEUE")
+    lines: list[str] = [""]
+    if comment:
+        lines.append(f"<!-- {comment} -->")
+        lines.append("")
+    lines.extend(_queue_header_lines())
+    for row in rows:
+        lines.append(_format_queue_row(row))
+    new_body = "\n".join(lines) + "\n\n"
+    _write(text[:sec_start] + "## QUEUE\n" + new_body + text[sec_end:])
 
 
 def update_queue_row(
@@ -179,6 +211,7 @@ def update_queue_row(
     addr: str | None = None,
     tvl: str | None = None,
     stage: str | None = None,
+    score: str | None = None,
 ) -> QueueRow | None:
     text = _read()
     sec_start, sec_end, body = _section(text, "QUEUE")
@@ -198,6 +231,9 @@ def update_queue_row(
                 new_lines.append(line)
                 continue
             if n == num:
+                # Normalize to 7-column layout
+                if len(cells) == 6:
+                    cells = [cells[0], cells[1], cells[2], cells[3], cells[4], "", cells[5]]
                 if name is not None:
                     cells[1] = name
                 if chain is not None:
@@ -206,17 +242,21 @@ def update_queue_row(
                     cells[3] = addr.lower()
                 if tvl is not None:
                     cells[4] = tvl
+                if score is not None:
+                    cells[5] = score
                 if stage is not None:
-                    cells[5] = stage
-                new_lines.append("| " + " | ".join(cells) + " |")
-                updated = QueueRow(
+                    cells[6] = stage
+                row = QueueRow(
                     num=n,
                     name=cells[1],
                     chain=cells[2],
                     addr=cells[3].lower(),
                     tvl=cells[4],
-                    stage=cells[5],
+                    stage=cells[6],
+                    score=cells[5],
                 )
+                new_lines.append(_format_queue_row(row))
+                updated = row
                 continue
         new_lines.append(line)
     if updated is None:
@@ -247,16 +287,20 @@ def update_stage(addr: str, stage: str) -> QueueRow | None:
             except ValueError:
                 new_lines.append(line)
                 continue
-            cells[5] = stage
-            new_lines.append("| " + " | ".join(cells) + " |")
-            updated = QueueRow(
+            if len(cells) == 6:
+                cells = [cells[0], cells[1], cells[2], cells[3], cells[4], "", cells[5]]
+            cells[6] = stage
+            row = QueueRow(
                 num=num,
                 name=cells[1],
                 chain=cells[2],
                 addr=cells[3].lower(),
                 tvl=cells[4],
                 stage=stage,
+                score=cells[5],
             )
+            new_lines.append(_format_queue_row(row))
+            updated = row
         else:
             new_lines.append(line)
     if updated is None:
@@ -343,7 +387,10 @@ def append_excluded(
 
 def print_queue_table(rows: list[QueueRow] | None = None) -> None:
     rows = rows if rows is not None else parse_queue()
-    print("| # | name | chain | addr | tvl | stage |")
-    print("|---|------|-------|------|-----|-------|")
+    print("| # | name | chain | addr | tvl | score | stage |")
+    print("|---|------|-------|------|-----|-------|-------|")
     for r in rows:
-        print(f"| {r.num} | {r.name} | {r.chain} | {r.addr} | {r.tvl} | {r.stage} |")
+        score = r.score if r.score != "" else "—"
+        print(
+            f"| {r.num} | {r.name} | {r.chain} | {r.addr} | {r.tvl} | {score} | {r.stage} |"
+        )

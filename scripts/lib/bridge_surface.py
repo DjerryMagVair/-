@@ -19,6 +19,24 @@ VIEW_SIGS: list[str] = [
     "totalLocked()",
     # Stargate pool marker (OFT tokens like ZRO do not expose this)
     "stargateType()",
+    # Across / OFT / messaging
+    "hubPool()",
+    "getCurrentTime()",
+    "numberOfDeposits()",
+    "localDomain()",
+    "getLocalDomain()",
+    # OP-stack / canonical L1↔L2
+    "messenger()",
+    "OTHER_BRIDGE()",
+    "otherBridge()",
+    "version()",
+    "paused()",
+    "portal()",
+    # Arbitrum / gateway style
+    "inbox()",
+    "router()",
+    "counterpartGateway()",
+    "l1GatewayRouter()",
 ]
 
 ARG_PROBES: list[tuple[str, str]] = [
@@ -32,6 +50,8 @@ ARG_PROBES: list[tuple[str, str]] = [
     ("setLockedAmount(uint256)", "uint256"),
     ("relayer(address)", "address"),
     ("oracle(address)", "address"),
+    ("depositETH(uint256)", "uint256"),
+    ("bridgeETH(uint256)", "uint256"),
 ]
 
 
@@ -111,32 +131,25 @@ def validate_bridge_surface(
         probes.append({"to": addr, "data": _encode_probe(sig, kind), "from": from_addr})
         meta.append(sig)
 
-    # Cap remaining probes to 16 → 2 batches of 8
+    # Cap to 16 probes → ≤2 batches of 8 (RPC budget)
     probes = probes[:16]
     meta = meta[:16]
 
     hits: list[str] = []
     details: list[dict[str, Any]] = []
 
-    batch1, meta1 = probes[:8], meta[:8]
-    res1 = eth_calls_batch(chain, batch1)
-    rpc_batches += 1
-    for sig, res in zip(meta1, res1):
-        ok = _is_hit(res)
-        details.append({"sig": sig, "ok": ok, "raw_ok": bool(res.get("ok"))})
-        if ok:
-            hits.append(sig)
-
-    if len(hits) < 2:
-        batch2, meta2 = probes[8:16], meta[8:16]
-        if batch2:
-            res2 = eth_calls_batch(chain, batch2)
-            rpc_batches += 1
-            for sig, res in zip(meta2, res2):
-                ok = _is_hit(res)
-                details.append({"sig": sig, "ok": ok, "raw_ok": bool(res.get("ok"))})
-                if ok:
-                    hits.append(sig)
+    # Always run both batches when probes exist so L1/L2 markers in batch2 count.
+    for offset in (0, 8):
+        batch, batch_meta = probes[offset : offset + 8], meta[offset : offset + 8]
+        if not batch:
+            break
+        res_batch = eth_calls_batch(chain, batch)
+        rpc_batches += 1
+        for sig, res in zip(batch_meta, res_batch):
+            ok = _is_hit(res)
+            details.append({"sig": sig, "ok": ok, "raw_ok": bool(res.get("ok"))})
+            if ok:
+                hits.append(sig)
 
     # owner/mint/burn alone are common on tokens — require ≥1 strong probe.
     strong_set = {
@@ -156,6 +169,21 @@ def validate_bridge_surface(
         "unlock(address,uint256)",
         "relayer(address)",
         "oracle(address)",
+        "hubPool()",
+        "getCurrentTime()",
+        "numberOfDeposits()",
+        "localDomain()",
+        "getLocalDomain()",
+        "messenger()",
+        "OTHER_BRIDGE()",
+        "otherBridge()",
+        "portal()",
+        "inbox()",
+        "router()",
+        "counterpartGateway()",
+        "l1GatewayRouter()",
+        "depositETH(uint256)",
+        "bridgeETH(uint256)",
     }
     strong_hits = [h for h in hits if h in strong_set]
     surface = len(hits) >= 2 and len(strong_hits) >= 1

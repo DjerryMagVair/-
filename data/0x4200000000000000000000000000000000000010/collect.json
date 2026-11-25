@@ -1,0 +1,25 @@
+{
+  "protocol": "ink",
+  "role": "L1StandardBridge",
+  "name": "Ink L1 Standard Bridge",
+  "chain": "ink",
+  "addr": "0x4200000000000000000000000000000000000010",
+  "tvl": 37444247.509321995,
+  "score": 6,
+  "factors": {
+    "tvl_factor": 3,
+    "age_factor": 1,
+    "custom_factor": 1,
+    "chain_factor": 2
+  },
+  "listed_at": "2024-12-01T00:00:00+00:00",
+  "verify": {
+    "ok": true,
+    "reason": "ok",
+    "code_size": 2059,
+    "verified": true,
+    "bridge_surface": true,
+    "rpc_calls": 3
+  },
+  "llama_ok": true
+}

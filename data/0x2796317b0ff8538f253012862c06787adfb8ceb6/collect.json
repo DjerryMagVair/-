@@ -1,0 +1,25 @@
+{
+  "protocol": "synapse",
+  "role": "SynapseBridge",
+  "name": "Synapse Bridge",
+  "chain": "ethereum",
+  "addr": "0x2796317b0ff8538f253012862c06787adfb8ceb6",
+  "tvl": 0.0,
+  "score": 6,
+  "factors": {
+    "tvl_factor": 3,
+    "age_factor": 1,
+    "custom_factor": 2,
+    "chain_factor": 1
+  },
+  "listed_at": "2021-09-01T00:00:00+00:00",
+  "verify": {
+    "ok": true,
+    "reason": "ok",
+    "code_size": 2004,
+    "verified": false,
+    "bridge_surface": false,
+    "rpc_calls": 3
+  },
+  "llama_ok": true
+}

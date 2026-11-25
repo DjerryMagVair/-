@@ -44,12 +44,13 @@ STATE.md — единственный источник правды.
   не payload для атаки.
 
 ## Примечания по источникам
-- DefiLlama `GET /bridges` часто 402 (paid). `collect_candidates.py`
-  пробует `/bridges`, затем fallback на `GET /protocols` (category содержит Bridge),
-  TVL > $1M, адрес вида `ethereum:0x…`.
-- Поле `address` у Llama часто = token/governance. В QUEUE только после
-  `validate_bridge_surface(addr) == true` (≥2 non-empty eth_call probes).
-- RPC: primary + fallbacks в `config/rpc.json` (llamarpc может отдавать 525).
+- Адреса мостов — только из `config/bridge_allowlist.json` (TokenBridge/Pool/SpokePool…).
+  DefiLlama `address` **не** используется (часто token/governance).
+- DefiLlama `GET /protocols` (category Bridge*) — только TVL + `listedAt` для score.
+- Attack-surface score = `tvl_factor × age_factor × custom_factor × chain_factor`
+  (mid-TVL / новые / custom / Base|Ink|Robinhood|BSC выше; mega-TVL ниже).
+- Перед QUEUE: `eth_getCode` + explorer verified + `validate_bridge_surface`.
+- RPC: primary + fallbacks в `config/rpc.json` (цепи: ethereum, base, arbitrum, bsc, ink, robinhood).
 - EXCLUDED дедуп по **address** и по (name, chain).
 
 ## Команды

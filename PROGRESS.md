@@ -9,3 +9,4 @@
 - 2026-11-25: stage1 Stargate Arb 0xa45b… → STAGE2 (strategist via chat; Cursor wrote file)
 - 2026-11-25: stage2 Stargate Arb 0xa45b… → SAFE
 - 2026-11-25: stage1 Across SpokePool 0x5c7b… → STAGE2
+- 2026-11-25: rework collect — allowlist + attack-surface score; CURSOR Across Base

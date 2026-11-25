@@ -1,0 +1,25 @@
+{
+  "protocol": "hop",
+  "role": "L1_Bridge",
+  "name": "Hop L1 Bridge",
+  "chain": "ethereum",
+  "addr": "0xb8901acb165ed027e32754e0ffe830802919727f",
+  "tvl": 2924880.387068597,
+  "score": 6,
+  "factors": {
+    "tvl_factor": 3,
+    "age_factor": 1,
+    "custom_factor": 2,
+    "chain_factor": 1
+  },
+  "listed_at": "2021-07-01T00:00:00+00:00",
+  "verify": {
+    "ok": true,
+    "reason": "ok",
+    "code_size": 18447,
+    "verified": false,
+    "bridge_surface": false,
+    "rpc_calls": 3
+  },
+  "llama_ok": true
+}

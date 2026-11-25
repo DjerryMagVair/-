@@ -1,0 +1,25 @@
+{
+  "protocol": "linea",
+  "role": "MessageService",
+  "name": "Linea L1 Message Service",
+  "chain": "ethereum",
+  "addr": "0xd19d4b5d358258f05d7b411e21a1460d11b0876f",
+  "tvl": 42469884.028091475,
+  "score": 3,
+  "factors": {
+    "tvl_factor": 3,
+    "age_factor": 1,
+    "custom_factor": 1,
+    "chain_factor": 1
+  },
+  "listed_at": "2023-07-01T00:00:00+00:00",
+  "verify": {
+    "ok": true,
+    "reason": "ok",
+    "code_size": 2227,
+    "verified": false,
+    "bridge_surface": false,
+    "rpc_calls": 3
+  },
+  "llama_ok": true
+}
