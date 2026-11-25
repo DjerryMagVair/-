@@ -11,7 +11,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 REPO = SCRIPT_DIR.parent
 sys.path.insert(0, str(SCRIPT_DIR))
 
-from lib.rpc import ZERO_ADDR, eth_calls_batch, selector  # noqa: E402
+from lib.rpc import ZERO_ADDR, eth_calls_batch, selector, storage_to_address  # noqa: E402
 from lib.state import find_by_addr, print_queue_table, set_cursor, update_stage  # noqa: E402
 
 DATA = REPO / "data"
@@ -37,6 +37,18 @@ ANCHOR_SIGS = [
     "updateAnchor(uint256,bytes32)",
     "setLocked(uint256)",
     "setLocked(address,uint256)",
+]
+
+# Stargate V2 / OFT-style views (when stage1 hit stargateType)
+STARGATE_VIEW_SIGS = [
+    "stargateType()",
+    "token()",
+    "endpoint()",
+    "sharedDecimals()",
+    "oftVersion()",
+    "poolToken()",
+    "stargate()",
+    "approvalRequired()",
 ]
 
 
@@ -79,103 +91,158 @@ def main() -> int:
     chain = row.chain
     stage1 = _load_stage1(addr)
     owner = stage1.get("owner") or ZERO_ADDR
+    surface_hits = set((stage1.get("surface") or {}).get("hits") or [])
+    is_stargate = "stargateType()" in surface_hits
 
     rpc_batches = 0
     flags: list[str] = []
     details: dict = {}
-
-    # --- Batch 1: view totals (≤8) ---
-    view_calls = [{"to": addr, "data": selector(sig)} for sig in VIEW_SIGS]
-    view_res = eth_calls_batch(chain, view_calls)
-    rpc_batches += 1
-    views: dict[str, int | None] = {}
-    for sig, res in zip(VIEW_SIGS, view_res):
-        views[sig] = _u256(res.get("result") if res.get("ok") else None)
-    details["views"] = {k: v for k, v in views.items() if v is not None}
-
-    total_minted = views.get("totalMinted()")
-    total_locked = views.get("totalLocked()")
-    if total_minted is None:
-        total_minted = views.get("totalSupply()")
-    if total_locked is None:
-        total_locked = views.get("totalBridged()") or views.get("lockedBalance()")
-
-    unbacked = None
-    if total_minted is not None and total_locked is not None:
-        unbacked = total_minted > total_locked
-        if unbacked:
-            flags.append("UNBACKED_MINT_INVARIANT")
-    details["totalMinted"] = total_minted
-    details["totalLocked"] = total_locked
-    details["unbacked_mint"] = unbacked
-
-    # --- Batch 2: mint eth_call from 0x0 and owner (≤8) ---
-    mint_calls = []
-    mint_meta = []
     dummy = "0x0000000000000000000000000000000000000001"
-    for sig in MINT_SIGS:
-        sel = selector(sig)
-        if sig == "mint(address,uint256)":
-            data = sel + _encode_addr(dummy) + _encode_u256(1)
-        elif sig == "mint(address,uint256,bytes)":
-            # offset + amounts + empty bytes
-            data = (
-                sel
-                + _encode_addr(dummy)
-                + _encode_u256(1)
-                + _encode_u256(96)
-                + _encode_u256(0)
-            )
-        else:  # mint(uint256)
-            data = sel + _encode_u256(1)
-        for frm in (ZERO_ADDR, owner):
-            mint_calls.append({"to": addr, "data": data, "from": frm})
-            mint_meta.append({"sig": sig, "from": frm})
 
-    # Truncate to ≤8 to respect batch_limit / stage budget
-    mint_calls = mint_calls[:8]
-    mint_meta = mint_meta[:8]
-    mint_res = eth_calls_batch(chain, mint_calls)
-    rpc_batches += 1
-    mint_access = []
-    for meta, res in zip(mint_meta, mint_res):
-        ok = bool(res.get("ok"))
-        entry = {"sig": meta["sig"], "from": meta["from"], "eth_call_ok": ok}
-        if ok and meta["from"] == ZERO_ADDR:
-            flags.append("MINT_CALLABLE_FROM_ZERO")
-        mint_access.append(entry)
-    details["mint_access"] = mint_access
-
-    # --- Batch 3: anchor/lock mutators from 0x0 and owner ---
-    anchor_calls = []
-    anchor_meta = []
-    for sig in ANCHOR_SIGS:
-        sel = selector(sig)
-        if "bytes32" in sig and sig.startswith("updateAnchor(bytes32)"):
-            data = sel + _encode_u256(0)
-        elif sig == "updateAnchor(uint256,bytes32)":
-            data = sel + _encode_u256(1) + _encode_u256(0)
-        elif sig == "setLocked(uint256)":
-            data = sel + _encode_u256(1)
-        else:  # setLocked(address,uint256)
-            data = sel + _encode_addr(dummy) + _encode_u256(1)
-        for frm in (ZERO_ADDR, owner):
-            anchor_calls.append({"to": addr, "data": data, "from": frm})
-            anchor_meta.append({"sig": sig, "from": frm})
-    anchor_calls = anchor_calls[:8]
-    anchor_meta = anchor_meta[:8]
-    # Stay within RPC ≤ 10: we already used 2 batches; one more OK
-    if rpc_batches < 10:
-        anchor_res = eth_calls_batch(chain, anchor_calls)
+    if is_stargate:
+        # --- Stargate path: views + access (≤3 batches) ---
+        view_calls = [{"to": addr, "data": selector(sig)} for sig in STARGATE_VIEW_SIGS]
+        view_res = eth_calls_batch(chain, view_calls)
         rpc_batches += 1
-        anchor_access = []
-        for meta, res in zip(anchor_meta, anchor_res):
+        sg_views: dict[str, object] = {}
+        for sig, res in zip(STARGATE_VIEW_SIGS, view_res):
+            if not res.get("ok"):
+                continue
+            raw = res.get("result")
+            if sig in ("token()", "endpoint()", "poolToken()", "stargate()"):
+                sg_views[sig] = storage_to_address(raw if isinstance(raw, str) else "0x0")
+            else:
+                sg_views[sig] = _u256(raw if isinstance(raw, str) else None)
+        details["stargate_views"] = sg_views
+        if sg_views.get("stargateType()") is not None:
+            details["stargateType"] = sg_views.get("stargateType()")
+
+        # Access: setPeer / setRateLimit-like not encoded; probe Ownable + OFT mutators
+        access_sigs = [
+            ("transferOwnership(address)", selector("transferOwnership(address)") + _encode_addr(dummy)),
+            ("renounceOwnership()", selector("renounceOwnership()")),
+            ("setDelegate(address)", selector("setDelegate(address)") + _encode_addr(dummy)),
+            ("mint(address,uint256)", selector("mint(address,uint256)") + _encode_addr(dummy) + _encode_u256(1)),
+        ]
+        access_calls = []
+        access_meta = []
+        for sig, data in access_sigs:
+            for frm in (ZERO_ADDR, owner):
+                access_calls.append({"to": addr, "data": data, "from": frm})
+                access_meta.append({"sig": sig, "from": frm})
+        access_calls = access_calls[:8]
+        access_meta = access_meta[:8]
+        access_res = eth_calls_batch(chain, access_calls)
+        rpc_batches += 1
+        access_rows = []
+        for meta, res in zip(access_meta, access_res):
+            ok = bool(res.get("ok"))
+            access_rows.append({**meta, "eth_call_ok": ok})
+            if ok and meta["from"] == ZERO_ADDR:
+                flags.append(f"STARGATE_CALLABLE_FROM_ZERO:{meta['sig']}")
+        details["stargate_access"] = access_rows
+
+        # Thin surface: only type+owner, no token/endpoint/pool → likely wrong contract
+        meaningful = [
+            k
+            for k, v in sg_views.items()
+            if k != "stargateType()" and v not in (None, 0, "0x0000000000000000000000000000000000000000")
+        ]
+        if not meaningful and not flags:
+            flags.append("THIN_STARGATE_SURFACE")
+            details["thin_surface_note"] = (
+                "stargateType present but no token/endpoint/poolToken — likely not a live pool"
+            )
+
+        details["totalMinted"] = None
+        details["totalLocked"] = None
+        details["unbacked_mint"] = None
+    else:
+        # --- Generic bridge path ---
+        view_calls = [{"to": addr, "data": selector(sig)} for sig in VIEW_SIGS]
+        view_res = eth_calls_batch(chain, view_calls)
+        rpc_batches += 1
+        views: dict[str, int | None] = {}
+        for sig, res in zip(VIEW_SIGS, view_res):
+            views[sig] = _u256(res.get("result") if res.get("ok") else None)
+        details["views"] = {k: v for k, v in views.items() if v is not None}
+
+        total_minted = views.get("totalMinted()")
+        total_locked = views.get("totalLocked()")
+        if total_minted is None:
+            total_minted = views.get("totalSupply()")
+        if total_locked is None:
+            total_locked = views.get("totalBridged()") or views.get("lockedBalance()")
+
+        unbacked = None
+        if total_minted is not None and total_locked is not None:
+            unbacked = total_minted > total_locked
+            if unbacked:
+                flags.append("UNBACKED_MINT_INVARIANT")
+        details["totalMinted"] = total_minted
+        details["totalLocked"] = total_locked
+        details["unbacked_mint"] = unbacked
+
+        mint_calls = []
+        mint_meta = []
+        for sig in MINT_SIGS:
+            sel = selector(sig)
+            if sig == "mint(address,uint256)":
+                data = sel + _encode_addr(dummy) + _encode_u256(1)
+            elif sig == "mint(address,uint256,bytes)":
+                data = (
+                    sel
+                    + _encode_addr(dummy)
+                    + _encode_u256(1)
+                    + _encode_u256(96)
+                    + _encode_u256(0)
+                )
+            else:
+                data = sel + _encode_u256(1)
+            for frm in (ZERO_ADDR, owner):
+                mint_calls.append({"to": addr, "data": data, "from": frm})
+                mint_meta.append({"sig": sig, "from": frm})
+        mint_calls = mint_calls[:8]
+        mint_meta = mint_meta[:8]
+        mint_res = eth_calls_batch(chain, mint_calls)
+        rpc_batches += 1
+        mint_access = []
+        for meta, res in zip(mint_meta, mint_res):
             ok = bool(res.get("ok"))
             entry = {"sig": meta["sig"], "from": meta["from"], "eth_call_ok": ok}
             if ok and meta["from"] == ZERO_ADDR:
-                flags.append("ANCHOR_CALLABLE_FROM_ZERO")
-            anchor_access.append(entry)
-        details["anchor_access"] = anchor_access
+                flags.append("MINT_CALLABLE_FROM_ZERO")
+            mint_access.append(entry)
+        details["mint_access"] = mint_access
+
+        anchor_calls = []
+        anchor_meta = []
+        for sig in ANCHOR_SIGS:
+            sel = selector(sig)
+            if sig.startswith("updateAnchor(bytes32)"):
+                data = sel + _encode_u256(0)
+            elif sig == "updateAnchor(uint256,bytes32)":
+                data = sel + _encode_u256(1) + _encode_u256(0)
+            elif sig == "setLocked(uint256)":
+                data = sel + _encode_u256(1)
+            else:
+                data = sel + _encode_addr(dummy) + _encode_u256(1)
+            for frm in (ZERO_ADDR, owner):
+                anchor_calls.append({"to": addr, "data": data, "from": frm})
+                anchor_meta.append({"sig": sig, "from": frm})
+        anchor_calls = anchor_calls[:8]
+        anchor_meta = anchor_meta[:8]
+        if rpc_batches < 10:
+            anchor_res = eth_calls_batch(chain, anchor_calls)
+            rpc_batches += 1
+            anchor_access = []
+            for meta, res in zip(anchor_meta, anchor_res):
+                ok = bool(res.get("ok"))
+                entry = {"sig": meta["sig"], "from": meta["from"], "eth_call_ok": ok}
+                if ok and meta["from"] == ZERO_ADDR:
+                    flags.append("ANCHOR_CALLABLE_FROM_ZERO")
+                anchor_access.append(entry)
+            details["anchor_access"] = anchor_access
 
     # Key compromise surface from stage1
     details["owner"] = owner
@@ -196,12 +263,24 @@ def main() -> int:
         flags.append("UNVERIFIED_SOURCE_SPOOFING_REVIEW")
 
     # Verdict
-    if flags:
+    dangerous = [
+        f
+        for f in flags
+        if f.startswith("MINT_CALLABLE")
+        or f.startswith("ANCHOR_CALLABLE")
+        or f.startswith("STARGATE_CALLABLE")
+        or f == "UNBACKED_MINT_INVARIANT"
+    ]
+    if dangerous:
+        stage = "FORK"
+        reason = "invariant_or_access_flags:" + ",".join(sorted(set(flags)))
+    elif "THIN_STARGATE_SURFACE" in flags:
+        stage = "SAFE"
+        reason = "thin_stargate_surface_likely_wrong_contract"
+    elif flags:
         stage = "FORK"
         reason = "invariant_or_access_flags:" + ",".join(sorted(set(flags)))
     else:
-        # No matching views and no open mint → likely different ABI; still FORK
-        # only if we saw mint/anchor callables from zero; else SAFE
         stage = "SAFE"
         reason = "no_invariant_flags"
 

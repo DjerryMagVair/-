@@ -3,10 +3,12 @@
   "addr": "0xa45b5130f36cdca45667738e2a258ab09f4a5f7f",
   "name": "Stargate V2",
   "chain": "arbitrum",
-  "stage": "CHECKLIST",
-  "awaiting": "verdicts/stage1/0xa45b5130f36cdca45667738e2a258ab09f4a5f7f.json",
+  "stage": "SAFE",
+  "awaiting": "verdicts/stage2/0xa45b5130f36cdca45667738e2a258ab09f4a5f7f.json",
   "reports": {
-    "stage1": "data/0xa45b5130f36cdca45667738e2a258ab09f4a5f7f/stage1.json"
+    "stage1": "data/0xa45b5130f36cdca45667738e2a258ab09f4a5f7f/stage1.json",
+    "stage2": "data/0xa45b5130f36cdca45667738e2a258ab09f4a5f7f/stage2.json"
   },
-  "updated_at": "2026-11-25T12:21:00Z"
+  "pipeline_hint": "no_invariant_flags",
+  "updated_at": "2026-11-25T13:15:27Z"
 }

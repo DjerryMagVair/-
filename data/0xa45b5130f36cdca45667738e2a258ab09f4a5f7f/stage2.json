@@ -1,0 +1,75 @@
+{
+  "addr": "0xa45b5130f36cdca45667738e2a258ab09f4a5f7f",
+  "chain": "arbitrum",
+  "name": "Stargate V2",
+  "rpc_batches": 2,
+  "flags": [],
+  "details": {
+    "stargate_views": {
+      "stargateType()": 0,
+      "token()": null,
+      "endpoint()": "0x1a44076050125825900e736c501f859c50fe728c",
+      "sharedDecimals()": 6,
+      "oftVersion()": 151519123122238194857520659735523591578923523583235492060213574869692010445834212392843651608073545677235479021605887120959658125314857374362989882245120,
+      "approvalRequired()": 1
+    },
+    "stargateType": 0,
+    "stargate_access": [
+      {
+        "sig": "transferOwnership(address)",
+        "from": "0x0000000000000000000000000000000000000000",
+        "eth_call_ok": false
+      },
+      {
+        "sig": "transferOwnership(address)",
+        "from": "0x184257d5b9e25a12d1dcafb697bfaafe0f5ca150",
+        "eth_call_ok": true
+      },
+      {
+        "sig": "renounceOwnership()",
+        "from": "0x0000000000000000000000000000000000000000",
+        "eth_call_ok": false
+      },
+      {
+        "sig": "renounceOwnership()",
+        "from": "0x184257d5b9e25a12d1dcafb697bfaafe0f5ca150",
+        "eth_call_ok": true
+      },
+      {
+        "sig": "setDelegate(address)",
+        "from": "0x0000000000000000000000000000000000000000",
+        "eth_call_ok": false
+      },
+      {
+        "sig": "setDelegate(address)",
+        "from": "0x184257d5b9e25a12d1dcafb697bfaafe0f5ca150",
+        "eth_call_ok": true
+      },
+      {
+        "sig": "mint(address,uint256)",
+        "from": "0x0000000000000000000000000000000000000000",
+        "eth_call_ok": false
+      },
+      {
+        "sig": "mint(address,uint256)",
+        "from": "0x184257d5b9e25a12d1dcafb697bfaafe0f5ca150",
+        "eth_call_ok": true
+      }
+    ],
+    "totalMinted": null,
+    "totalLocked": null,
+    "unbacked_mint": null,
+    "owner": "0x184257d5b9e25a12d1dcafb697bfaafe0f5ca150",
+    "eip1967_admin": null,
+    "eip1967_impl": null,
+    "upgrade_surface": false,
+    "message_spoofing": {
+      "note": "requires source review: chainId binding, signature, nonce",
+      "verified_source": null,
+      "needs_manual": true
+    }
+  },
+  "stage": "SAFE",
+  "reason": "no_invariant_flags",
+  "stage1_ref": "/home/djerry/repos/dash-repo/data/0xa45b5130f36cdca45667738e2a258ab09f4a5f7f/stage1.json"
+}

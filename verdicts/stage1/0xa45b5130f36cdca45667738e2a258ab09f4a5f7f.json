@@ -1,0 +1,14 @@
+{
+  "addr": "0xa45b5130f36cdca45667738e2a258ab09f4a5f7f",
+  "stage": 1,
+  "verdict": "STAGE2",
+  "reason": "stargateType+owner; need Stargate-specific access/invariant checks",
+  "evidence": [
+    "stage1 bridge_surface true",
+    "hits: owner(), stargateType()",
+    "not EIP-1967 proxy"
+  ],
+  "next_cmd": "./run.sh stage2 0xa45b5130f36cdca45667738e2a258ab09f4a5f7f",
+  "ts": "2026-11-25T13:05:39Z",
+  "agent": "strategist"
+}
