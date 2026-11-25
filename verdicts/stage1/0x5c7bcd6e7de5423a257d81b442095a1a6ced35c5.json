@@ -1,0 +1,15 @@
+{
+  "addr": "0x5c7bcd6e7de5423a257d81b442095a1a6ced35c5",
+  "stage": 1,
+  "verdict": "STAGE2",
+  "reason": "proxy + owner + chainId; need upgrade-access/owner-permission checks",
+  "evidence": [
+    "code=680 proxy",
+    "impl=0x456ac26e5ec083ee9889eba0d1a0a582502b8e84",
+    "owner=0xc186fa914353c44b2e33ebe05f21846f1048beda",
+    "admin=null"
+  ],
+  "next_cmd": "./run.sh stage2 0x5c7bcd6e7de5423a257d81b442095a1a6ced35c5",
+  "ts": "2026-11-25T13:28:50Z",
+  "agent": "strategist"
+}

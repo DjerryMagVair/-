@@ -1,0 +1,102 @@
+{
+  "addr": "0x6985884c4392d348587b19cb9eaaf157f13271cd",
+  "chain": "ethereum",
+  "name": "LayerZero V2",
+  "code_size": 14810,
+  "bridge_surface": false,
+  "surface": {
+    "bridge_surface": false,
+    "hits": [
+      "owner()"
+    ],
+    "hit_count": 1,
+    "rpc_batches": 3,
+    "code_size": 14810,
+    "details": [
+      {
+        "sig": "owner()",
+        "ok": true,
+        "raw_ok": true
+      },
+      {
+        "sig": "tokenImplementation()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "wormhole()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "chainId()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "tokenBridge()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "getChainId()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "totalMinted()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "totalLocked()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "stargateType()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "mint(address,uint256)",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "burn(uint256)",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "lock(address,uint256)",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "unlock(address,uint256)",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "verifyMessage(bytes)",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "processMessage(bytes)",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "updateAnchor(uint256)",
+        "ok": false,
+        "raw_ok": false
+      }
+    ],
+    "label": "no-bridge-surface"
+  },
+  "stage": "SAFE",
+  "reason": "wrong_contract_no_bridge_surface",
+  "rpc_used": 3
+}

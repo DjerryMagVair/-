@@ -1,0 +1,43 @@
+{
+  "user_agent": "Mozilla/5.0",
+  "batch_limit": 8,
+  "chains": {
+    "ethereum": {
+      "rpc": "https://ethereum.publicnode.com",
+      "rpc_fallbacks": [
+        "https://1rpc.io/eth",
+        "https://eth.drpc.org",
+        "https://eth.llamarpc.com"
+      ],
+      "chain_id": 1,
+      "explorer_api": "https://api.etherscan.io/api"
+    },
+    "base": {
+      "rpc": "https://mainnet.base.org",
+      "rpc_fallbacks": [
+        "https://base.publicnode.com",
+        "https://1rpc.io/base"
+      ],
+      "chain_id": 8453,
+      "explorer_api": "https://api.basescan.org/api"
+    },
+    "arbitrum": {
+      "rpc": "https://arb1.arbitrum.io/rpc",
+      "rpc_fallbacks": [
+        "https://arbitrum-one.publicnode.com",
+        "https://1rpc.io/arb"
+      ],
+      "chain_id": 42161,
+      "explorer_api": "https://api.arbiscan.io/api"
+    },
+    "bsc": {
+      "rpc": "https://bsc-dataseed.binance.org",
+      "rpc_fallbacks": [
+        "https://bsc.publicnode.com",
+        "https://1rpc.io/bnb"
+      ],
+      "chain_id": 56,
+      "explorer_api": "https://api.bscscan.com/api"
+    }
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "addr": "0xa45b5130f36cdca45667738e2a258ab09f4a5f7f",
+  "chain": "arbitrum",
+  "name": "Stargate V2",
+  "code_size": 22628,
+  "bridge_surface": true,
+  "surface": {
+    "bridge_surface": true,
+    "hits": [
+      "owner()",
+      "stargateType()"
+    ],
+    "strong_hits": [
+      "stargateType()"
+    ],
+    "hit_count": 2,
+    "rpc_batches": 3,
+    "code_size": 22628,
+    "details": [
+      {
+        "sig": "owner()",
+        "ok": true,
+        "raw_ok": true
+      },
+      {
+        "sig": "tokenImplementation()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "wormhole()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "chainId()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "tokenBridge()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "getChainId()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "totalMinted()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "totalLocked()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "stargateType()",
+        "ok": true,
+        "raw_ok": true
+      },
+      {
+        "sig": "mint(address,uint256)",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "burn(uint256)",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "lock(address,uint256)",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "unlock(address,uint256)",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "verifyMessage(bytes)",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "processMessage(bytes)",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "updateAnchor(uint256)",
+        "ok": false,
+        "raw_ok": false
+      }
+    ],
+    "label": "bridge-surface: true"
+  },
+  "eip1967_impl": null,
+  "eip1967_admin": null,
+  "owner": "0x184257d5b9e25a12d1dcafb697bfaafe0f5ca150",
+  "owner_sig": "owner()",
+  "verified": null,
+  "rpc_used": 5,
+  "stage": "CHECKLIST",
+  "reason": "bridge_surface_needs_invariant_checks"
+}

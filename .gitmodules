@@ -1,0 +1,3 @@
+[submodule "scripts/stage3_fork/lib/forge-std"]
+	path = scripts/stage3_fork/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std

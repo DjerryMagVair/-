@@ -1,0 +1,13 @@
+# Foundry
+scripts/stage3_fork/out/
+scripts/stage3_fork/cache/
+scripts/stage3_fork/broadcast/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS / editor
+.DS_Store
+*.swp
