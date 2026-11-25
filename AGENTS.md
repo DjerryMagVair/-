@@ -11,9 +11,11 @@ Key Compromise, Input Validation.
 STATE.md — единственный источник правды.
 
 ## Роли
-- **Чат (стратег/аналитик):** выбирает кандидатов из QUEUE, трактует JSON-отчёты,
-  пишет findings. Не делает RPC руками.
-- **Cursor (исполнитель):** скрипты, RPC, форк-тесты инвариантов, обновление STATE.md.
+- **Strategist (sandbox / локальная модель):** только вердикты в `verdicts/` + `PROGRESS.md`.
+  Не делает RPC. Не трогает `STATE.md` / `data/` / `scripts/`.
+- **Cursor (исполнитель):** скрипты, RPC, forge, `STATE.md`, `data/`, `queue/current.json`.
+- Контракт и цикл: см. **HANDOFF.md** (обязателен).
+- Применить вердикты: `python3 scripts/apply_verdicts.py`
 
 ## Структура
 ```
