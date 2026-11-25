@@ -1,15 +1,16 @@
 {
   "cursor": 1,
-  "addr": "0x09aea4b2242abc8bb4bb78d537a67a245a7bec64",
-  "name": "Across SpokePool",
-  "chain": "base",
-  "stage": "CHECKLIST",
-  "score": "6.0",
-  "awaiting": "verdicts/stage1/0x09aea4b2242abc8bb4bb78d537a67a245a7bec64.json",
-  "next_cmd": null,
+  "addr": "0xeb964a1a6fab73b8c72a0d15c7337fa4804f484d",
+  "name": "hemiBTC Bridge",
+  "chain": "ethereum",
+  "stage": "NEW",
+  "score": "16.0",
+  "awaiting": null,
+  "next_cmd": "./run.sh stage1 0xeb964a1a6fab73b8c72a0d15c7337fa4804f484d",
   "reports": {
-    "stage1": "data/0x09aea4b2242abc8bb4bb78d537a67a245a7bec64/stage1.json"
+    "discovery": "data/discovery.json",
+    "primary": "data/primary_assessment.json"
   },
-  "updated_at": "2026-11-25T14:32:25Z",
-  "note": "PR#2 fixes applied; awaiting strategist SAFE|EXCLUDED|STAGE2"
+  "updated_at": "2026-11-25T14:56:24Z",
+  "note": "Hunt mode: mid/new/custom. CURSOR=#1 hemiBTC. Top10 in primary_assessment.json"
 }

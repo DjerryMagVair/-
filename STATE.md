@@ -2,27 +2,26 @@
 
 ## QUEUE
 
-<!-- score = tvl×age×custom×chain×audit; EXCLUDED skipped unless --force; addrs from config/bridge_allowlist.json -->
+<!-- hunt score = tvl×age×custom×chain×audit×vanilla; EXCLUDED skipped unless --force; addrs from config/bridge_allowlist.json -->
 
 | # | name | chain | addr | tvl | score | stage |
 |---|------|-------|------|-----|-------|-------|
-| 1 | Across SpokePool | base | 0x09aea4b2242abc8bb4bb78d537a67a245a7bec64 | $11,700,608 | 6.0 | CHECKLIST |
-| 2 | Allbridge Core | ethereum | 0xb753548f6e010e7e680ba186f9ca1bdab2e90cf2 | manual | 6.0 | NEW |
-| 3 | Celer cBridge | ethereum | 0x5427fefa711eff984124bfbb1ab6fbf5e3da1820 | $10,365,496 | 6.0 | NEW |
-| 4 | Chainlink CCIP Router | ethereum | 0x80226fc0ee2b096224eeac085bb9a8cba1146f7d | $1,686,916,258 | 6.0 | NEW |
-| 5 | Connext Diamond | ethereum | 0x8898b472c54c31894e3b9bb83cea802a5d0e63c6 | $17,591 | 6.0 | NEW |
-| 6 | deBridge Gate | ethereum | 0x43de2d77bf8027e25dbd179b491e8d64f38398aa | $1,366,908 | 6.0 | NEW |
-| 7 | Hop L1 Bridge | ethereum | 0xb8901acb165ed027e32754e0ffe830802919727f | $2,924,880 | 6.0 | NEW |
-| 8 | Ink L1 Standard Bridge | ink | 0x4200000000000000000000000000000000000010 | $37,304,031 | 6.0 | NEW |
-| 9 | Robinhood L1 ERC20 Gateway | robinhood | 0x1e324b9316138ca9a73f960213621ad1aaf01b89 | manual | 6.0 | NEW |
+| 1 | hemiBTC Bridge | ethereum | 0xeb964a1a6fab73b8c72a0d15c7337fa4804f484d | $1,602,754 | 16.0 | NEW |
+| 2 | PumpBTC | bsc | 0xb7c0007ab75350c582d5eab1862b872b5cf53f0c | $20,232,027 | 16.0 | NEW |
+| 3 | Sonic Gateway TokenDeposit | ethereum | 0xa1e2481a9cd0cb0447eeb1cbc26f1b3fff3bec20 | $3,187,071 | 16.0 | NEW |
+| 4 | Sophon Shared Bridge | ethereum | 0xd7f9f54194c633f36ccd5f3da84ad4a1c38cb2cb | $3,691,294 | 16.0 | NEW |
+| 5 | Celer cBridge | ethereum | 0x5427fefa711eff984124bfbb1ab6fbf5e3da1820 | $10,365,496 | 8.0 | NEW |
+| 6 | deBridge Gate | ethereum | 0x43de2d77bf8027e25dbd179b491e8d64f38398aa | $1,366,908 | 8.0 | NEW |
+| 7 | Hop L1 Bridge | ethereum | 0xb8901acb165ed027e32754e0ffe830802919727f | $2,924,880 | 8.0 | NEW |
+| 8 | Sanko Bridge | arbitrum | 0x8b0e6f19ee57089f7649a455d89d7bc6314d04e8 | $615,848 | 8.0 | NEW |
+| 9 | Allbridge Core | ethereum | 0xb753548f6e010e7e680ba186f9ca1bdab2e90cf2 | manual | 6.0 | NEW |
 | 10 | Synapse Bridge | ethereum | 0x2796317b0ff8538f253012862c06787adfb8ceb6 | manual | 6.0 | NEW |
-| 11 | Across SpokePool | ethereum | 0x5c7bcd6e7de5423a257d81b442095a1a6ced35c5 | $11,700,608 | 3.0 | SAFE |
-| 12 | Ink L1 Standard Bridge | ethereum | 0x88ff1e5b602916615391f55854588efcbb7663f0 | $37,304,031 | 3.0 | NEW |
-| 13 | Linea L1 Message Service | ethereum | 0xd19d4b5d358258f05d7b411e21a1460d11b0876f | $42,469,884 | 3.0 | NEW |
-| 14 | Robinhood L1 ERC20 Gateway | ethereum | 0x85001cc4867c5e1c22da4b79bb8852b9e2a06da0 | manual | 3.0 | NEW |
-| 15 | zkSync Era Diamond | ethereum | 0x32400084c286cf3e17e7b677ea9583e60a000324 | manual | 3.0 | NEW |
-| 16 | Stargate V2 Pool | bsc | 0x4a364f8c717caad9a442737eb7b8a55cc6cf18d8 | $73,492,672 | 2.0 | NEW |
-| 17 | Polygon PoS RootChainManager | ethereum | 0xa0c68c638235ee32657e8f720a23cec1bfc77c77 | $2,133,723,690 | 1.0 | NEW |
+| 11 | Connext Diamond | ethereum | 0x8898b472c54c31894e3b9bb83cea802a5d0e63c6 | $17,591 | 4.0 | NEW |
+| 12 | Ink L1 Standard Bridge | ink | 0x4200000000000000000000000000000000000010 | $37,304,031 | 2.8 | NEW |
+| 13 | Robinhood L1 ERC20 Gateway | ethereum | 0x85001cc4867c5e1c22da4b79bb8852b9e2a06da0 | manual | 2.1 | NEW |
+| 14 | Ink L1 Standard Bridge | ethereum | 0x88ff1e5b602916615391f55854588efcbb7663f0 | $37,304,031 | 1.4 | NEW |
+| 15 | Linea L1 Message Service | ethereum | 0xd19d4b5d358258f05d7b411e21a1460d11b0876f | $42,469,884 | 1.4 | NEW |
+
 ## CURSOR
 
 current: #1
@@ -48,7 +47,6 @@ current: #1
 | Starknet Bridge | ethereum | 0xca14007eff0db1f8135f4c25b34de49ab0d42766 | 2026-11-25 | wrong contract (no-bridge-surface) |
 | Grvt Bridge | ethereum | 0xad29f2723fcdbcf665f210f25e06f97477e417cf | 2026-11-25 | wrong contract (no-bridge-surface) |
 | Multichain | ethereum | 0x9fb9a33956351cf4fa040f65a13b835a3c8764e3 | 2026-11-25 | wrong contract (no-bridge-surface) |
-| PumpBTC | bsc | 0xb7c0007ab75350c582d5eab1862b872b5cf53f0c | 2026-11-25 | wrong contract (no-bridge-surface) |
 | Paradex Bridge | ethereum | 0xb32e10022ffbedfe10bc818a1c7e67d9d87e0fa7 | 2026-11-25 | wrong contract (no-bridge-surface) |
 | Orderly Bridge | ethereum | 0xabd4c63d2616a5201454168269031355f4764337 | 2026-11-25 | wrong contract (no-bridge-surface) |
 | Cronos zkEVM Bridge | ethereum | 0x28ff2e4dd1b58efeb0fc138602a28d5ae81e44e2 | 2026-11-25 | wrong contract (no-bridge-surface) |
@@ -65,7 +63,6 @@ current: #1
 | Hop Protocol | ethereum | 0xc5102fe9359fd9a28f877a67e36b0f050d81a3cc | 2026-11-25 | wrong contract (no-bridge-surface) |
 | Taiko Bridge | ethereum | 0x10dea67478c5f8c5e2d90e5e9b26dbe60c54d800 | 2026-11-25 | wrong contract (no-bridge-surface) |
 | BOB Bridge | ethereum | 0xc9746f73cc33a36c2cd55b8aefd732586946cedd | 2026-11-25 | wrong contract (no-bridge-surface) |
-| hemiBTC | ethereum | 0xeb964a1a6fab73b8c72a0d15c7337fa4804f484d | 2026-11-25 | wrong contract (no-bridge-surface) |
 | Lisk Bridge | ethereum | 0x6033f7f88332b8db6ad452b7c6d5bb643990ae3f | 2026-11-25 | wrong contract (no-bridge-surface) |
 | SoDEX Bridge | ethereum | 0x624e2e7fdc8903165f64891672267ab0fcb98831 | 2026-11-25 | wrong contract (no-bridge-surface) |
 | Orbit Bridge | ethereum | 0x662b67d00a13faf93254714dd601f5ed49ef2f51 | 2026-11-25 | wrong contract (no-bridge-surface) |

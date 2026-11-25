@@ -5,14 +5,17 @@
   "chain": "ethereum",
   "addr": "0xd19d4b5d358258f05d7b411e21a1460d11b0876f",
   "tvl": 42469884.028091475,
-  "score": 3.0,
+  "score": 1.4,
   "factors": {
-    "tvl_factor": 3,
-    "age_factor": 1,
-    "custom_factor": 1,
-    "chain_factor": 1,
-    "audit_factor": 1.0
+    "tvl_factor": 2.0,
+    "age_factor": 1.0,
+    "custom_factor": 2.0,
+    "chain_factor": 1.0,
+    "audit_factor": 0.35,
+    "vanilla_factor": 1.0
   },
+  "why": "Custom message service; audited \u2192 down-ranked",
+  "vanilla": false,
   "listed_at": "2023-07-01T00:00:00+00:00",
   "verify": {
     "ok": true,
@@ -23,5 +26,5 @@
     "rpc_calls": 3
   },
   "llama_ok": true,
-  "force": false
+  "force": true
 }

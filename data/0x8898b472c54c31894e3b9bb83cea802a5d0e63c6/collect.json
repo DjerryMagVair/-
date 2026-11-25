@@ -5,14 +5,17 @@
   "chain": "ethereum",
   "addr": "0x8898b472c54c31894e3b9bb83cea802a5d0e63c6",
   "tvl": 17591.35053217013,
-  "score": 6.0,
+  "score": 4.0,
   "factors": {
-    "tvl_factor": 3,
-    "age_factor": 1,
-    "custom_factor": 2,
-    "chain_factor": 1,
-    "audit_factor": 1.0
+    "tvl_factor": 2.0,
+    "age_factor": 1.0,
+    "custom_factor": 2.0,
+    "chain_factor": 1.0,
+    "audit_factor": 1.0,
+    "vanilla_factor": 1.0
   },
+  "why": "Diamond facets = large attack surface, low Llama TVL",
+  "vanilla": false,
   "listed_at": "2022-03-01T00:00:00+00:00",
   "verify": {
     "ok": true,
@@ -23,5 +26,5 @@
     "rpc_calls": 3
   },
   "llama_ok": true,
-  "force": false
+  "force": true
 }

@@ -5,14 +5,17 @@
   "chain": "ink",
   "addr": "0x4200000000000000000000000000000000000010",
   "tvl": 37304030.589731075,
-  "score": 6.0,
+  "score": 2.8,
   "factors": {
-    "tvl_factor": 3,
-    "age_factor": 1,
-    "custom_factor": 1,
-    "chain_factor": 2,
-    "audit_factor": 1.0
+    "tvl_factor": 2.0,
+    "age_factor": 2.0,
+    "custom_factor": 1.0,
+    "chain_factor": 2.0,
+    "audit_factor": 1.0,
+    "vanilla_factor": 0.35
   },
+  "why": "New chain but vanilla OP-stack \u2014 lower priority (config diffs only)",
+  "vanilla": true,
   "listed_at": "2024-12-01T00:00:00+00:00",
   "verify": {
     "ok": true,
@@ -23,5 +26,5 @@
     "rpc_calls": 3
   },
   "llama_ok": true,
-  "force": false
+  "force": true
 }

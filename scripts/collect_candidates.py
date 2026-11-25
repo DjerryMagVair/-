@@ -90,37 +90,47 @@ def _age_months(when: datetime | None, now: datetime) -> float | None:
     return max(0.0, (now - when).days / 30.44)
 
 
-def tvl_factor(tvl: float) -> int:
-    if tvl < 1_000_000:
-        return 3  # mid/low — still interesting if allowlisted
-    if tvl <= 50_000_000:
-        return 3
+def tvl_factor(tvl: float) -> float:
+    """Prefer mid-tier; crush mega-TVL."""
+    if tvl <= 0:
+        return 3.0  # unknown / manual allowlist
+    if 500_000 <= tvl <= 30_000_000:
+        return 4.0
+    if tvl <= 80_000_000:
+        return 2.0
     if tvl <= 500_000_000:
-        return 2
-    return 1  # over-audited mega-TVL
+        return 0.5
+    return 0.25  # mega — almost never worth hunter time
 
 
-def age_factor(months: float | None) -> int:
+def age_factor(months: float | None) -> float:
     if months is None:
-        return 2  # unknown → mid
+        return 2.0
     if months < 6:
-        return 3
-    if months <= 12:
-        return 2
-    return 1
+        return 4.0
+    if months < 12:
+        return 3.0
+    if months <= 24:
+        return 2.0
+    return 1.0
 
 
-def custom_factor(is_custom: bool) -> int:
-    return 2 if is_custom else 1
+def custom_factor(is_custom: bool) -> float:
+    return 2.0 if is_custom else 1.0
 
 
-def chain_factor(chain: str) -> int:
-    return 2 if chain.lower() in NEW_CHAINS else 1
+def vanilla_factor(is_vanilla: bool) -> float:
+    """OP-stack / Arb standard gateway re-deploys — low hunt value."""
+    return 0.35 if is_vanilla else 1.0
+
+
+def chain_factor(chain: str) -> float:
+    return 2.0 if chain.lower() in NEW_CHAINS else 1.0
 
 
 def audit_factor(is_audited: bool) -> float:
-    """Across / Stargate / Wormhole (public audits+bounty) → 0.5; else 1.0."""
-    return 0.5 if is_audited else 1.0
+    """Public audits/bounty (Across/Stargate/Wormhole/Linea…) → 0.35."""
+    return 0.35 if is_audited else 1.0
 
 
 def attack_surface_score(
@@ -130,6 +140,7 @@ def attack_surface_score(
     is_custom: bool,
     chain: str,
     is_audited: bool = False,
+    is_vanilla: bool = False,
     now: datetime | None = None,
 ) -> float:
     now = now or datetime.now(timezone.utc)
@@ -139,6 +150,7 @@ def attack_surface_score(
         * custom_factor(is_custom)
         * chain_factor(chain)
         * audit_factor(is_audited)
+        * vanilla_factor(is_vanilla)
     )
     return round(float(raw), 2)
 
@@ -187,8 +199,8 @@ def verify_candidate(addr: str, chain: str, *, allowlisted: bool = True) -> dict
     strong = list(surface.get("strong_hits") or [])
     if allowlisted and not surface_ok and strong:
         surface_ok = True  # curated bridge addr + ≥1 strong marker
-    # Last resort for known L1/L2 proxies: allowlist + code
-    if allowlisted and not surface_ok and code_size >= 500:
+    # Last resort for curated proxies (EIP-1967 shells can be <500B): allowlist + code
+    if allowlisted and not surface_ok and code_size >= 100:
         surface_ok = True
 
     ok = explorer_ok and surface_ok
@@ -246,6 +258,7 @@ def main() -> int:
         listed = llama_hit.get("listed_at") or _parse_listed_at(meta.get("listed_at"))
         is_custom = bool(meta.get("custom", True))
         is_audited = bool(meta.get("audited", protocol in AUDITED_DEFAULT))
+        is_vanilla = bool(meta.get("vanilla", False))
         display = str(meta.get("display_name") or protocol)
         role = str(meta.get("role") or "")
 
@@ -291,9 +304,10 @@ def main() -> int:
             score = attack_surface_score(
                 tvl=tvl,
                 listed_at=listed,
-                is_custom=is_custom,
+                is_custom=is_custom and not is_vanilla,
                 chain=chain,
                 is_audited=is_audited,
+                is_vanilla=is_vanilla,
                 now=now,
             )
             tvl_str = f"${tvl:,.0f}" if tvl > 0 else "manual"
@@ -328,10 +342,13 @@ def main() -> int:
                 "factors": {
                     "tvl_factor": tvl_factor(tvl),
                     "age_factor": age_factor(_age_months(listed, now)),
-                    "custom_factor": custom_factor(is_custom),
+                    "custom_factor": custom_factor(is_custom and not is_vanilla),
                     "chain_factor": chain_factor(chain),
                     "audit_factor": audit_factor(is_audited),
+                    "vanilla_factor": vanilla_factor(is_vanilla),
                 },
+                "why": meta.get("why"),
+                "vanilla": is_vanilla,
                 "listed_at": listed.isoformat() if isinstance(listed, datetime) else None,
                 "verify": {
                     "ok": verdict["ok"],
@@ -391,7 +408,7 @@ def main() -> int:
     replace_queue(
         ranked,
         comment=(
-            "score = tvl×age×custom×chain×audit; "
+            "hunt score = tvl×age×custom×chain×audit×vanilla; "
             "EXCLUDED skipped unless --force; "
             "addrs from config/bridge_allowlist.json"
         ),

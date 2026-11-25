@@ -5,14 +5,17 @@
   "chain": "ethereum",
   "addr": "0x5427fefa711eff984124bfbb1ab6fbf5e3da1820",
   "tvl": 10365495.90096192,
-  "score": 6.0,
+  "score": 8.0,
   "factors": {
-    "tvl_factor": 3,
-    "age_factor": 1,
-    "custom_factor": 2,
-    "chain_factor": 1,
-    "audit_factor": 1.0
+    "tvl_factor": 4.0,
+    "age_factor": 1.0,
+    "custom_factor": 2.0,
+    "chain_factor": 1.0,
+    "audit_factor": 1.0,
+    "vanilla_factor": 1.0
   },
+  "why": "SSG/SSP custom path; still mid-tier vs Portal/Stargate",
+  "vanilla": false,
   "listed_at": "2021-11-07T17:45:54+00:00",
   "verify": {
     "ok": true,
@@ -23,5 +26,5 @@
     "rpc_calls": 3
   },
   "llama_ok": true,
-  "force": false
+  "force": true
 }

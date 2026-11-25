@@ -5,14 +5,17 @@
   "chain": "ethereum",
   "addr": "0x88ff1e5b602916615391f55854588efcbb7663f0",
   "tvl": 37304030.589731075,
-  "score": 3.0,
+  "score": 1.4,
   "factors": {
-    "tvl_factor": 3,
-    "age_factor": 1,
-    "custom_factor": 1,
-    "chain_factor": 1,
-    "audit_factor": 1.0
+    "tvl_factor": 2.0,
+    "age_factor": 2.0,
+    "custom_factor": 1.0,
+    "chain_factor": 1.0,
+    "audit_factor": 1.0,
+    "vanilla_factor": 0.35
   },
+  "why": "New chain but vanilla OP-stack \u2014 lower priority (config diffs only)",
+  "vanilla": true,
   "listed_at": "2024-12-01T00:00:00+00:00",
   "verify": {
     "ok": true,
@@ -23,5 +26,5 @@
     "rpc_calls": 3
   },
   "llama_ok": true,
-  "force": false
+  "force": true
 }

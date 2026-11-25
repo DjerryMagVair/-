@@ -5,14 +5,17 @@
   "chain": "ethereum",
   "addr": "0x43de2d77bf8027e25dbd179b491e8d64f38398aa",
   "tvl": 1366908.1657877737,
-  "score": 6.0,
+  "score": 8.0,
   "factors": {
-    "tvl_factor": 3,
-    "age_factor": 1,
-    "custom_factor": 2,
-    "chain_factor": 1,
-    "audit_factor": 1.0
+    "tvl_factor": 4.0,
+    "age_factor": 1.0,
+    "custom_factor": 2.0,
+    "chain_factor": 1.0,
+    "audit_factor": 1.0,
+    "vanilla_factor": 1.0
   },
+  "why": "Custom message+gate logic, mid TVL, not vanilla L2",
+  "vanilla": false,
   "listed_at": "2022-02-23T20:30:02+00:00",
   "verify": {
     "ok": true,
@@ -23,5 +26,5 @@
     "rpc_calls": 3
   },
   "llama_ok": true,
-  "force": false
+  "force": true
 }
