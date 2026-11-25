@@ -3,12 +3,100 @@
   "chain": "ethereum",
   "name": "LayerZero V2",
   "code_size": 14810,
-  "eip1967_impl": null,
-  "eip1967_admin": null,
-  "owner": "0xf2c6ebc0aad6e8024a2bd2623f97fea5d0ca8ef8",
-  "owner_sig": "owner()",
-  "verified": null,
-  "rpc_used": 4,
-  "stage": "CHECKLIST",
-  "reason": "has_code_needs_invariant_checks"
+  "bridge_surface": false,
+  "surface": {
+    "bridge_surface": false,
+    "hits": [
+      "owner()"
+    ],
+    "hit_count": 1,
+    "rpc_batches": 3,
+    "code_size": 14810,
+    "details": [
+      {
+        "sig": "owner()",
+        "ok": true,
+        "raw_ok": true
+      },
+      {
+        "sig": "tokenImplementation()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "wormhole()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "chainId()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "tokenBridge()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "getChainId()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "totalMinted()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "totalLocked()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "stargateType()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "mint(address,uint256)",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "burn(uint256)",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "lock(address,uint256)",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "unlock(address,uint256)",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "verifyMessage(bytes)",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "processMessage(bytes)",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "updateAnchor(uint256)",
+        "ok": false,
+        "raw_ok": false
+      }
+    ],
+    "label": "no-bridge-surface"
+  },
+  "stage": "SAFE",
+  "reason": "wrong_contract_no_bridge_surface",
+  "rpc_used": 3
 }

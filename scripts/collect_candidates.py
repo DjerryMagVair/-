@@ -3,7 +3,9 @@
 
 Primary source: GET https://api.llama.fi/protocols (category Bridge*),
 because /bridges is currently subscription-gated (HTTP 402).
-Optional fallback attempt: /bridges and overview/bridges.
+
+Addresses from DefiLlama `address` are often tokens — only enqueue when
+validate_bridge_surface(addr) is true.
 """
 
 from __future__ import annotations
@@ -14,12 +16,14 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(SCRIPT_DIR))
 
+from lib.bridge_surface import validate_bridge_surface  # noqa: E402
 from lib.rpc import http_get_json, load_config  # noqa: E402
 from lib.state import (  # noqa: E402
     QueueRow,
     append_queue_rows,
     next_queue_num,
     parse_excluded,
+    parse_excluded_addrs,
     parse_queue,
     print_queue_table,
 )
@@ -63,6 +67,7 @@ def _from_protocols(cfg: dict) -> list[dict]:
     if not isinstance(protocols, list):
         return []
     out = []
+    allowed = set(cfg["chains"].keys())
     for p in protocols:
         if not isinstance(p, dict):
             continue
@@ -80,21 +85,9 @@ def _from_protocols(cfg: dict) -> list[dict]:
         chain, addr = (None, None)
         if isinstance(addr_raw, str):
             chain, addr = _parse_prefixed_address(addr_raw)
-        # Prefer a configured chain that appears in chainTvls with TVL
-        if not chain or not addr:
+        if not chain or not addr or chain not in allowed:
             continue
-        allowed = set(cfg["chains"].keys())
-        if chain not in allowed:
-            # try remap from chains list + same address (rare)
-            continue
-        out.append(
-            {
-                "name": name,
-                "chain": chain,
-                "addr": addr,
-                "tvl": tvl,
-            }
-        )
+        out.append({"name": name, "chain": chain, "addr": addr, "tvl": tvl})
     return out
 
 
@@ -145,19 +138,33 @@ def main() -> int:
         candidates = _from_protocols(cfg)
         source = "protocols"
 
-    excluded = parse_excluded()
+    excluded_nc = parse_excluded()
+    excluded_addrs = parse_excluded_addrs()
     existing_addrs = {r.addr for r in parse_queue()}
     next_num = next_queue_num()
     to_add: list[QueueRow] = []
+    skipped_no_surface = 0
+    skipped_excluded = 0
 
     for c in sorted(candidates, key=lambda x: -x["tvl"]):
         name = c["name"]
         chain = c["chain"]
         addr = c["addr"]
-        if (name.lower(), chain.lower()) in excluded:
+        if (name.lower(), chain.lower()) in excluded_nc:
+            skipped_excluded += 1
+            continue
+        if addr in excluded_addrs:
+            skipped_excluded += 1
             continue
         if addr in existing_addrs:
             continue
+
+        surface = validate_bridge_surface(addr, chain)
+        if not surface.get("bridge_surface"):
+            skipped_no_surface += 1
+            # Do not enqueue — no-bridge-surface (token/governance)
+            continue
+
         to_add.append(
             QueueRow(
                 num=next_num,
@@ -174,8 +181,10 @@ def main() -> int:
     added = append_queue_rows(to_add)
     print(f"source: {source}")
     print(f"added: {added}")
+    print(f"skipped_no_bridge_surface: {skipped_no_surface}")
+    print(f"skipped_excluded: {skipped_excluded}")
     print_queue_table()
-    return 0 if added >= 1 or parse_queue() else 1
+    return 0
 
 
 if __name__ == "__main__":

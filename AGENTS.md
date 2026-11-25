@@ -45,7 +45,10 @@ STATE.md — единственный источник правды.
 - DefiLlama `GET /bridges` часто 402 (paid). `collect_candidates.py`
   пробует `/bridges`, затем fallback на `GET /protocols` (category содержит Bridge),
   TVL > $1M, адрес вида `ethereum:0x…`.
+- Поле `address` у Llama часто = token/governance. В QUEUE только после
+  `validate_bridge_surface(addr) == true` (≥2 non-empty eth_call probes).
 - RPC: primary + fallbacks в `config/rpc.json` (llamarpc может отдавать 525).
+- EXCLUDED дедуп по **address** и по (name, chain).
 
 ## Команды
 ```
