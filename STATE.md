@@ -45,7 +45,7 @@
 | 37 | hemiBTC | ethereum | 0xeb964a1a6fab73b8c72a0d15c7337fa4804f484d | $1,630,663 | SAFE |
 | 38 | Lisk Bridge | ethereum | 0x6033f7f88332b8db6ad452b7c6d5bb643990ae3f | $1,142,866 | SAFE |
 | 39 | Portal | ethereum | 0x3ee18b2214aff97000d974cf647e7c347e8fa585 | manual | EXCLUDED |
-| 40 | Across SpokePool | ethereum | 0x5c7bcd6e7de5423a257d81b442095a1a6ced35c5 | manual | CHECKLIST |
+| 40 | Across SpokePool | ethereum | 0x5c7bcd6e7de5423a257d81b442095a1a6ced35c5 | manual | SAFE |
 ## CURSOR
 
 current: #40
