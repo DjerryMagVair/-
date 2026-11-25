@@ -1,0 +1,71 @@
+{
+  "addr": "0x5c7bcd6e7de5423a257d81b442095a1a6ced35c5",
+  "chain": "ethereum",
+  "name": "Across SpokePool",
+  "code_size": 680,
+  "bridge_surface": true,
+  "surface": {
+    "bridge_surface": true,
+    "hits": [
+      "owner()",
+      "chainId()"
+    ],
+    "strong_hits": [
+      "chainId()"
+    ],
+    "hit_count": 2,
+    "rpc_batches": 2,
+    "code_size": 680,
+    "details": [
+      {
+        "sig": "owner()",
+        "ok": true,
+        "raw_ok": true
+      },
+      {
+        "sig": "tokenImplementation()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "wormhole()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "chainId()",
+        "ok": true,
+        "raw_ok": true
+      },
+      {
+        "sig": "tokenBridge()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "getChainId()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "totalMinted()",
+        "ok": false,
+        "raw_ok": false
+      },
+      {
+        "sig": "totalLocked()",
+        "ok": false,
+        "raw_ok": false
+      }
+    ],
+    "label": "bridge-surface: true"
+  },
+  "eip1967_impl": "0x456ac26e5ec083ee9889eba0d1a0a582502b8e84",
+  "eip1967_admin": null,
+  "owner": "0xc186fa914353c44b2e33ebe05f21846f1048beda",
+  "owner_sig": "owner()",
+  "verified": null,
+  "rpc_used": 4,
+  "stage": "CHECKLIST",
+  "reason": "bridge_surface_needs_invariant_checks"
+}

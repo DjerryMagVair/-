@@ -1,0 +1,14 @@
+{
+  "addr": "0xa45b5130f36cdca45667738e2a258ab09f4a5f7f",
+  "stage": 2,
+  "verdict": "SAFE",
+  "reason": "Stargate V2 endpoint+OFT; flags=[]; mint from 0x0=false; no access/invariant issues",
+  "evidence": [
+    "stage2 flags=[]",
+    "endpoint+OFT",
+    "mint from 0x0=false"
+  ],
+  "next_cmd": null,
+  "ts": "2026-11-25T13:19:31Z",
+  "agent": "strategist"
+}

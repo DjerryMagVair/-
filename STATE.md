@@ -45,9 +45,10 @@
 | 37 | hemiBTC | ethereum | 0xeb964a1a6fab73b8c72a0d15c7337fa4804f484d | $1,630,663 | SAFE |
 | 38 | Lisk Bridge | ethereum | 0x6033f7f88332b8db6ad452b7c6d5bb643990ae3f | $1,142,866 | SAFE |
 | 39 | Portal | ethereum | 0x3ee18b2214aff97000d974cf647e7c347e8fa585 | manual | EXCLUDED |
+| 40 | Across SpokePool | ethereum | 0x5c7bcd6e7de5423a257d81b442095a1a6ced35c5 | manual | CHECKLIST |
 ## CURSOR
 
-current: #2
+current: #40
 
 ## EXCLUDED
 
@@ -91,6 +92,7 @@ current: #2
 | Lisk Bridge | ethereum | 0x6033f7f88332b8db6ad452b7c6d5bb643990ae3f | 2026-11-25 | wrong contract (no-bridge-surface) |
 | SoDEX Bridge | ethereum | 0x624e2e7fdc8903165f64891672267ab0fcb98831 | 2026-11-25 | wrong contract (no-bridge-surface) |
 | Orbit Bridge | ethereum | 0x662b67d00a13faf93254714dd601f5ed49ef2f51 | 2026-11-25 | wrong contract (no-bridge-surface) |
+| Stargate V2 | arbitrum | 0xa45b5130f36cdca45667738e2a258ab09f4a5f7f | 2026-11-25 | SAFE (endpoint+OFT, mint from 0x0=false) |
 
 ## FINDINGS
 
