@@ -1,0 +1,21 @@
+{
+  "addr": "0x3ee18b2214aff97000d974cf647e7c347e8fa585",
+  "chain": "ethereum",
+  "name": "Portal",
+  "code_size": 680,
+  "eip1967_impl": "0x381752f5458282d317d12c30d2bd4d6e1fd8841e",
+  "eip1967_admin": null,
+  "owner": null,
+  "owner_sig": null,
+  "verified": null,
+  "rpc_used": 4,
+  "stage": "CHECKLIST",
+  "reason": "has_code_needs_invariant_checks",
+  "source": "docs: wormhole portal token bridge (manual)",
+  "bridge_surface": {
+    "wormhole": "0x98f3c9e6e3face36baad05fe09d375ef1464288b",
+    "chainId": 2,
+    "proxy": true,
+    "note": "responds to wormhole()/chainId()/tokenImplementation() \u2014 not a token/governor"
+  }
+}
